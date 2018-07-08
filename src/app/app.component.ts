@@ -3,8 +3,8 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import firebase from 'firebase';
+
 
 
 import { FcmProvider } from '../providers/fcm/fcm';
@@ -12,6 +12,8 @@ import { FcmProvider } from '../providers/fcm/fcm';
 import { ToastController } from 'ionic-angular';
 import { Subject } from 'rxjs/Subject';
 import { tap } from 'rxjs/operators';
+import { SigninPage } from '../pages/signin/signin';
+import { SignupPage } from '../pages/signup/signup';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,21 +21,30 @@ import { tap } from 'rxjs/operators';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = SigninPage;
 
   pages: Array<{ title: string, component: any }>;
-
+  
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public fcm: FcmProvider,
     public toastCtrl: ToastController) {
-    this.initializeApp();
+    // console.log("es android", this.platform._platforms)
+    firebase.initializeApp({
+      apiKey: "AIzaSyAUpIAlovUT_t0CEgThZcbEd3jHNA4OQ9s",
+      authDomain: "remiseriacachito.firebaseapp.com",
+      databaseURL: "https://remiseriacachito.firebaseio.com",
+      storageBucket: "remiseriacachito.appspot.com",
 
+    })
+    if (!this.platform.is('mobileweb')) {
+      this.initializeApp();
+    }
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Login', component: SigninPage },
+      { title: 'SignUp', component: SignupPage }
     ];
 
   }
@@ -47,6 +58,7 @@ export class MyApp {
       // this.fcm.getToken().then(data => {
       //   console.log("data: ", data)
       // });
+
       this.fcm.getToken()
 
       // Listen to incoming messages
@@ -61,6 +73,7 @@ export class MyApp {
         })
       )
         .subscribe()
+
     });
   }
 

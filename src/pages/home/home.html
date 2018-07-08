@@ -3,16 +3,31 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <div *ngIf="tieneViajes">
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  </div>
+
+  <div *ngIf="!tieneViajes">
+    <form #f="ngForm" (ngSubmit)="generarPedido(f)">
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Destino</ion-label>
+          <ion-input type="text" [ngModel]="destino" name="destino" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Hora</ion-label>
+          <ion-input type="text" [ngModel]="hora" name="hora" required disabled></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button block type="submit" [disabled]="!f.valid">Iniciar Sesion</button>
+    </form>
+    <button ion-button (click)="getHora()">Eligir hora</button>
+
+  </div>
 </ion-content>

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firebase } from '@ionic-native/firebase';
+import firebase from 'firebase';
+
 import { Platform } from 'ionic-angular';
 // import { AngularFirestore } from 'angularfire2/firestore';
 
@@ -14,6 +16,12 @@ export class FcmProvider {
   ) { }
 
   // Get permission from the user
+  initialize() {
+    firebase.initializeApp({
+      apiKey:"AIzaSyAUpIAlovUT_t0CEgThZcbEd3jHNA4OQ9s",
+      authDomain:"remiseriacachito.firebaseapp.com"
+    })
+  }
   async getToken() {
 
     let token;
@@ -22,7 +30,7 @@ export class FcmProvider {
       token = await this.firebaseNative.getToken()
       console.log("token: ", token);
     }
-    
+
     if (this.platform.is('ios')) {
       token = await this.firebaseNative.getToken();
       await this.firebaseNative.grantPermission();

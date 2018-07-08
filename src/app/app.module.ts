@@ -10,12 +10,22 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FcmProvider } from '../providers/fcm/fcm';
 import { Firebase } from '@ionic-native/firebase';
+import { QRScanner } from '@ionic-native/qr-scanner';
+import { Camera } from '@ionic-native/camera';
+import { SigninPage } from '../pages/signin/signin';
+import { AuthService } from '../providers/auth';
+import { SignupPage } from '../pages/signup/signup';
+import { DatePicker } from '@ionic-native/date-picker';
+import { DatabaseProvider } from '../providers/database';
+import { StorageFbProvider } from '../providers/storage-fb';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    SigninPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -25,14 +35,22 @@ import { Firebase } from '@ionic-native/firebase';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    SigninPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     FcmProvider,
-    Firebase
+    Firebase,
+    QRScanner,
+    Camera,
+    AuthService,
+    DatePicker,
+    DatabaseProvider,
+    StorageFbProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
