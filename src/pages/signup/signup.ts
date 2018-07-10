@@ -68,4 +68,21 @@ export class SignupPage {
       // Handle error
     });
   }
+  takePhoto() {
+    this.camera.getPicture({
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.PNG,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      this.foto = imageData;
+      // this.storageFb.uploadPhoto(this.foto);
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
+  }
+  guardarFoto() {
+    this.storageFb.uploadPhoto(this.foto, this.email);
+  }
 }

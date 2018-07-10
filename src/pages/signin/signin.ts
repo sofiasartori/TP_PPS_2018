@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { LoadingController, AlertController, NavController } from "ionic-angular";
 
+import firebase from 'firebase';
+
 import { AuthService } from "../../providers/auth";
 import { HomePage } from '../home/home';
+import { DatabaseProvider } from '../../providers/database';
 
 @Component({
   selector: 'page-signin',
@@ -17,7 +20,8 @@ export class SigninPage {
   constructor(private authService: AuthService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    private database: DatabaseProvider) {
   }
 
   onSignin(form: NgForm) {
@@ -25,11 +29,17 @@ export class SigninPage {
       content: 'Signing you in...'
     });
     loading.present();
-    this.authService.signin(form.value.email, form.value.password)
+    this.database.signin(form.value.email, form.value.password)
       .then(data => {
         loading.dismiss();
-        console.log("loginok", data);
-        this.navCtrl.push(HomePage);
+        // firebase.auth().currentUser.
+        let ref = this.database.getUserInfo(this.mail);
+        ref.on('value', snapshot => {
+          snapshot.forEach(dataUser => {
+            this.database.setUser(dataUser);
+            this.navCtrl.push(HomePage);
+          })
+        })
       })
       .catch(error => {
         loading.dismiss();
@@ -40,5 +50,10 @@ export class SigninPage {
         });
         alert.present();
       });
+  }
+
+  guardarUsuario() {
+    this.database.guardarUsuario({ email: this.mail, direccion: "somellera 409" });
+
   }
 }

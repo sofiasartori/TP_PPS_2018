@@ -13,6 +13,7 @@
 
 
 <ion-content padding>
+
   <form #f="ngForm" (ngSubmit)="onSignin(f)">
     <ion-list>
       <ion-item>
@@ -26,4 +27,5 @@
     </ion-list>
     <button ion-button block type="submit" [disabled]="!f.valid">Iniciar Sesion</button>
   </form>
+
 </ion-content>

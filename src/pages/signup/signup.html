@@ -6,11 +6,10 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Signup</ion-title>
+    <ion-title>Crear usuario</ion-title>
   </ion-navbar>
 
 </ion-header>
-
 
 <ion-content padding>
   <form #f="ngForm" (ngSubmit)="onSignup(f)">
@@ -27,14 +26,14 @@
         <ion-label fixed>Dirección</ion-label>
         <ion-input type="direccion" [ngModel]="direccion" name="direccion" required [minlength]="6"></ion-input>
       </ion-item>
-      <button ion-button (click)="sacarFoto()">Sacar Foto</button>
       <ion-item [hidden]="true">
         <ion-label fixed>foto</ion-label>
-        <ion-input type="foto" [ngModel]="foto" name="foto" ></ion-input>
+        <ion-input type="foto" [ngModel]="foto" name="foto"></ion-input>
       </ion-item>
-
-
     </ion-list>
     <button ion-button block type="submit" [disabled]="!f.valid">Signup</button>
   </form>
+
+  <button ion-button (click)="takePhoto()" required>Sacar Foto</button>
+
 </ion-content>

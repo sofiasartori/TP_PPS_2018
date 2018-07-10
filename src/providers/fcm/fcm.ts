@@ -18,8 +18,8 @@ export class FcmProvider {
   // Get permission from the user
   initialize() {
     firebase.initializeApp({
-      apiKey:"AIzaSyAUpIAlovUT_t0CEgThZcbEd3jHNA4OQ9s",
-      authDomain:"remiseriacachito.firebaseapp.com"
+      apiKey: "AIzaSyAUpIAlovUT_t0CEgThZcbEd3jHNA4OQ9s",
+      authDomain: "remiseriacachito.firebaseapp.com"
     })
   }
   async getToken() {
@@ -51,6 +51,7 @@ export class FcmProvider {
 
     // return devicesRef.doc(token).set(docData)
   }
+
   // Listen to incoming FCM messages
   listenToNotifications() {
     return this.firebaseNative.onNotificationOpen()

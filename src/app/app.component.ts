@@ -14,6 +14,7 @@ import { Subject } from 'rxjs/Subject';
 import { tap } from 'rxjs/operators';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +25,7 @@ export class MyApp {
   rootPage: any = SigninPage;
 
   pages: Array<{ title: string, component: any }>;
-  
+
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
@@ -36,6 +37,7 @@ export class MyApp {
       authDomain: "remiseriacachito.firebaseapp.com",
       databaseURL: "https://remiseriacachito.firebaseio.com",
       storageBucket: "remiseriacachito.appspot.com",
+      projectId: "remiseriacachito"
 
     })
     if (!this.platform.is('mobileweb')) {
@@ -44,7 +46,9 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Login', component: SigninPage },
-      { title: 'SignUp', component: SignupPage }
+      { title: 'SignUp', component: SignupPage },
+      { title: 'Inicio', component: HomePage }
+
     ];
 
   }
