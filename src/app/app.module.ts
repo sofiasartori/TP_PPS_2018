@@ -18,6 +18,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { DatePicker } from '@ionic-native/date-picker';
 import { DatabaseProvider } from '../providers/database';
 import { StorageFbProvider } from '../providers/storage-fb';
+import { ReservaViajePage } from '../pages/reserva-viaje/reserva-viaje';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { StorageFbProvider } from '../providers/storage-fb';
     HomePage,
     ListPage,
     SigninPage,
-    SignupPage
+    SignupPage,
+    ReservaViajePage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { StorageFbProvider } from '../providers/storage-fb';
     HomePage,
     ListPage,
     SigninPage,
-    SignupPage
+    SignupPage,
+    ReservaViajePage
   ],
   providers: [
     StatusBar,

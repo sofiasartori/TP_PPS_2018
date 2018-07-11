@@ -45,7 +45,7 @@ export class SignupPage {
             console.log("log-in", data)
             loading.dismiss();
             const user = this.email.split('@')[0];
-            this.database.guardarUsuario({ email: this.email, direccion: this.direccion, user: user });
+            this.database.guardarUsuario({ email: this.email, direccion: this.direccion, user: user, rol: 'cliente' });
             this.storageFb.uploadPhoto(this.foto, this.email);
             this.navCtrl.setRoot(HomePage);
           }).catch(error => {

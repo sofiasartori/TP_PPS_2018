@@ -27,7 +27,7 @@ export class SigninPage {
 
   onSignin(form: NgForm) {
     const loading = this.loadingCtrl.create({
-      content: 'Signing you in...'
+      content: 'Iniciando sesión...'
     });
     loading.present();
     this.database.signin(form.value.email, form.value.password)
@@ -38,7 +38,17 @@ export class SigninPage {
         ref.on('value', snapshot => {
           snapshot.forEach(dataUser => {
             this.database.setUser(dataUser);
-            this.navCtrl.setRoot(HomePage);
+            switch (dataUser.val().rol) {
+              case 'cliente':
+                this.navCtrl.setRoot(HomePage);
+                break;
+              case 'chofer':
+                break;
+              case 'administrador':
+                break;
+              default:
+                break;
+            }
           })
         })
       })

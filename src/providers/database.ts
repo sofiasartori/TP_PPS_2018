@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import firebase from 'firebase';
 import { context_usuarios_fb } from '../properties';
-import { UserFb } from '../models/user-fb';
+import { UserFb, Recorrido } from '../models/user-fb';
 /*
   Generated class for the DatabaseProvider provider.
 
@@ -38,13 +38,31 @@ export class DatabaseProvider {
     return firebase.database().ref('usuarios/' + user)//.orderByChild('email').equalTo(email);
   }
 
-  setUser(dataUser: any) {
+  setUser(dataUser: firebase.database.DataSnapshot) {
+    const dataFb = dataUser.val();
+
     this.dataUserFb = {
       ...this.dataUserFb,
-      ...dataUser
+      ...dataFb,
+      id_firebase: dataUser.key,
     };
   }
   getEmail() {
     return firebase.auth().currentUser.email;
+  }
+  guardarNuevaRuta(data: Recorrido) {
+    const recorrido = { ...data, email: this.dataUserFb.user, direccion: this.dataUserFb.direccion }
+    const refRutas = firebase.database().ref('viajes');
+    const refUsuario = firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase);
+    refUsuario.update({ recorrido: recorrido });
+    refRutas.push(recorrido);
+  }
+
+  guardarReserva(data: Recorrido) {
+    const recorrido = { ...data, email: this.dataUserFb.user, direccion: this.dataUserFb.direccion }
+    const refReservas = firebase.database().ref('reserva');
+    const refUsuario = firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase);
+    refUsuario.update({ recorrido: recorrido });
+    refReservas.push(recorrido);
   }
 }
