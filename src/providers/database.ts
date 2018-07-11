@@ -25,7 +25,7 @@ export class DatabaseProvider {
   guardarUsuario(usuario: any) {
     // this.user = firebase.auth().currentUser
     // console.log
-    this.refUsers = firebase.database().ref(context_usuarios_fb);
+    this.refUsers = firebase.database().ref(context_usuarios_fb + usuario.user);
     this.refUsers.push(usuario,
       data => console.log('guardar-usuario', data)
     )
@@ -35,7 +35,7 @@ export class DatabaseProvider {
   getUserInfo(email: string) {
     const user = email.split('@')[0];
     this.dataUserFb.user = user;
-    return firebase.database().ref('usuarios/' + user).orderByChild('email').equalTo(email);
+    return firebase.database().ref('usuarios/' + user)//.orderByChild('email').equalTo(email);
   }
 
   setUser(dataUser: any) {

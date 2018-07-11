@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { LoadingController, AlertController } from "ionic-angular";
+import { LoadingController, AlertController, NavController } from "ionic-angular";
 
 import { AuthService } from "../../providers/auth";
 import { DatabaseProvider } from '../../providers/database';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { StorageFbProvider } from '../../providers/storage-fb';
+import { HomePage } from '../home/home';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class SignupPage {
     private alertCtrl: AlertController,
     private database: DatabaseProvider,
     private camera: Camera,
-    private storageFb: StorageFbProvider) {
+    private storageFb: StorageFbProvider,
+    public navCtrl: NavController) {
   }
 
   onSignup(form: NgForm) {
@@ -38,17 +40,18 @@ export class SignupPage {
     loading.present();
     this.authService.signup(form.value.email, form.value.password)
       .then(data => {
-        this.authService.signin(form.value.email, form.value.password).then(data => {
-          console.log("log-in", data)
-          loading.dismiss();
-          this.database.guardarUsuario({ email: this.email, direccion: this.direccion });
-          this.storageFb.uploadPhoto(this.foto, this.email);
-        }).catch(error => {
-          loading.dismiss();
-        })
-
-      })
-      .catch(error => {
+        this.authService.signin(form.value.email, form.value.password)
+          .then(data => {
+            console.log("log-in", data)
+            loading.dismiss();
+            const user = this.email.split('@')[0];
+            this.database.guardarUsuario({ email: this.email, direccion: this.direccion, user: user });
+            this.storageFb.uploadPhoto(this.foto, this.email);
+            this.navCtrl.setRoot(HomePage);
+          }).catch(error => {
+            loading.dismiss();
+          })
+      }).catch(error => {
         loading.dismiss();
         const alert = this.alertCtrl.create({
           title: 'Signup failed!',

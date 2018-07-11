@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import { AuthService } from "../../providers/auth";
 import { HomePage } from '../home/home';
 import { DatabaseProvider } from '../../providers/database';
+import { SignupPage } from '../signup/signup';
 
 @Component({
   selector: 'page-signin',
@@ -37,7 +38,7 @@ export class SigninPage {
         ref.on('value', snapshot => {
           snapshot.forEach(dataUser => {
             this.database.setUser(dataUser);
-            this.navCtrl.push(HomePage);
+            this.navCtrl.setRoot(HomePage);
           })
         })
       })
@@ -55,5 +56,8 @@ export class SigninPage {
   guardarUsuario() {
     this.database.guardarUsuario({ email: this.mail, direccion: "somellera 409" });
 
+  }
+  goToSignUp() {
+    this.navCtrl.push(SignupPage);
   }
 }
