@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Mis pedidos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="tieneViajes">
+    <h4>Origen</h4>
+    <label>{{database?.dataUserFb?.recorrido?.direccion}}</label>
+    <h4>Destino</h4>
+    <label>{{database?.dataUserFb?.recorrido?.destino}}</label>
+    <h4>Hora</h4>
+    <label>{{database?.dataUserFb?.recorrido?.hora}}</label>
+    <h4>Chofer</h4>
+    <label>{{database?.dataUserFb?.recorrido?.chofer}}</label>
+
+  </div>
+
+  <div *ngIf="!tieneViajes">
+    <form #f="ngForm" (ngSubmit)="generarPedido(f)">
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Destino</ion-label>
+          <ion-input type="text" [ngModel]="destino" name="destino" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Hora</ion-label>
+          <ion-input type="text" [ngModel]="hora" name="hora" required disabled></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button block type="submit" [disabled]="!f.valid">Pedir Auto</button>
+    </form>
+    <button ion-button (click)="getHora()">Eligir hora</button>
+
+  </div>
+</ion-content>

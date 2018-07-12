@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import firebase from 'firebase';
 
-
+// npm install -g firebase-tools
 
 import { FcmProvider } from '../providers/fcm/fcm';
 

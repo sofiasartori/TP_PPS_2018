@@ -4,11 +4,11 @@ export interface UserFb {
     email?: string;
     user?: string;
     rol?: string;
-    recorridoActual?: Recorrido;
+    recorrido?: Recorrido;
 }
 
 export interface Recorrido {
-    domicilio?: string;
+    direccion?: string;
     hora?: string;
     destino?: string;
     email?: string;
