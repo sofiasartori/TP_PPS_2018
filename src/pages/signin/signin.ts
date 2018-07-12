@@ -47,7 +47,7 @@ export class SigninPage {
             this.database.setUser(dataUser);
             switch (dataUser.val().rol) {
               case 'cliente':
-                this.navCtrl.setRoot("HomeClientePage");
+                this.navCtrl.setRoot("EncuestaClienteQrPage");
                 break;
               case 'chofer':
                 break;

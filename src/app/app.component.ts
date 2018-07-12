@@ -20,7 +20,7 @@ import { timer } from 'rxjs/observable/timer';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = "HomeClientePage";
+  rootPage: any = "SigninPage";
 
   pages: Array<{ title: string, component: any }>;
 
@@ -81,7 +81,6 @@ export class MyApp {
         })
       )
         .subscribe()
-
     });
   }
 
