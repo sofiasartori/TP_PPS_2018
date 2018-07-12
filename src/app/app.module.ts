@@ -3,8 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -12,20 +10,15 @@ import { FcmProvider } from '../providers/fcm/fcm';
 import { Firebase } from '@ionic-native/firebase';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { Camera } from '@ionic-native/camera';
-import { SigninPage } from '../pages/signin/signin';
 import { AuthService } from '../providers/auth';
-import { SignupPage } from '../pages/signup/signup';
 import { DatePicker } from '@ionic-native/date-picker';
 import { DatabaseProvider } from '../providers/database';
 import { StorageFbProvider } from '../providers/storage-fb';
+import { BarcodeScanner } from '../../node_modules/@ionic-native/barcode-scanner';
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    SigninPage,
-    SignupPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -33,11 +26,7 @@ import { StorageFbProvider } from '../providers/storage-fb';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    SigninPage,
-    SignupPage
+    MyApp
   ],
   providers: [
     StatusBar,
@@ -50,7 +39,8 @@ import { StorageFbProvider } from '../providers/storage-fb';
     AuthService,
     DatePicker,
     DatabaseProvider,
-    StorageFbProvider
+    StorageFbProvider,
+    BarcodeScanner
   ]
 })
 export class AppModule { }

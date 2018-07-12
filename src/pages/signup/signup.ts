@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { LoadingController, AlertController, NavController } from "ionic-angular";
+import { LoadingController, AlertController, NavController, IonicPage } from "ionic-angular";
 
 import { AuthService } from "../../providers/auth";
 import { DatabaseProvider } from '../../providers/database';
@@ -8,10 +8,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { StorageFbProvider } from '../../providers/storage-fb';
 import { HomePage } from '../home/home';
 
-
+@IonicPage()
 @Component({
   selector: 'page-signup',
-  templateUrl: 'signup.html'
+  templateUrl: 'signup.html',
 })
 export class SignupPage {
   email = 'pabloearg@gmail.com'
@@ -89,3 +89,4 @@ export class SignupPage {
     this.storageFb.uploadPhoto(this.foto, this.email);
   }
 }
+

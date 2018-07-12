@@ -1,17 +1,24 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { LoadingController, AlertController, NavController } from "ionic-angular";
+import { LoadingController, AlertController, NavController,IonicPage } from "ionic-angular";
 
 import firebase from 'firebase';
 
 import { AuthService } from "../../providers/auth";
 import { HomePage } from '../home/home';
 import { DatabaseProvider } from '../../providers/database';
-import { SignupPage } from '../signup/signup';
+// import { SignupPage } from '../signup/signup';
+/**
+ * Generated class for the SigninPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
+@IonicPage()
 @Component({
   selector: 'page-signin',
-  templateUrl: 'signin.html'
+  templateUrl: 'signin.html',
 })
 export class SigninPage {
 
@@ -68,6 +75,7 @@ export class SigninPage {
 
   }
   goToSignUp() {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push("SignupPage");
   }
 }
+

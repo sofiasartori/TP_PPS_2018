@@ -1,18 +1,70 @@
-<!--
-  Generated template for the EncuestaClienteQrPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>encuesta-cliente-qr</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Encuesta</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-content padding>
 
-</ion-content>
+    <button ion-button block (click)="leerQr()">Leer QR</button>
+
+    <form #f="ngForm" (ngSubmit)="guardarEncuesta(f)">
+      <ion-list>
+
+        <ion-list-header>
+          {{user?.formulario?.headerRange}}
+        </ion-list-header>
+        <ion-item>
+          <ion-range min="0" max="5" [(ngModel)]="calidad" color="calidad" name="calidad" required>
+            <ion-label range-left>0</ion-label>
+            <ion-label range-right>5</ion-label>
+          </ion-range>
+        </ion-item>
+
+        <ion-list radio-group [(ngModel)]="volverViajar" name="volverViajar" required>
+          <ion-list-header>
+            {{user?.formulario?.headerRadio}}
+          </ion-list-header>
+          <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="Si" checked></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="No"></ion-radio>
+          </ion-item>
+        </ion-list>
+        <ion-list-header>
+          {{user?.formulario?.headerSelect}}
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Calidad</ion-label>
+          <ion-select [(ngModel)]="calidad" name="calidad" required>
+            <ion-option value="0">Malo</ion-option>
+            <ion-option value="1">Regular</ion-option>
+            <ion-option value="2">Bueno</ion-option>
+            <ion-option value="3">Muy Bueno</ion-option>
+            <ion-option value="4">Excelente</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label> {{user?.formulario?.headerCheck}}</ion-label>
+          <ion-checkbox [(ngModel)]="llego" name="llego" required></ion-checkbox>
+        </ion-item>
+        <ion-list-header>
+          {{user?.formulario?.headerComentario}}
+        </ion-list-header>
+        <ion-item>
+          <ion-textarea placeholder="Comentario" [ngModel]="comentario" name="comentario" required></ion-textarea>
+        </ion-item>
+      </ion-list>
+      <button ion-button block type="submit" [disabled]="!f.valid">Enviar</button>
+    </form>
+  </ion-content>

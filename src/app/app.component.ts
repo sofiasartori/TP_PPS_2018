@@ -12,9 +12,6 @@ import { FcmProvider } from '../providers/fcm/fcm';
 import { ToastController } from 'ionic-angular';
 import { Subject } from 'rxjs/Subject';
 import { tap } from 'rxjs/operators';
-import { SigninPage } from '../pages/signin/signin';
-import { SignupPage } from '../pages/signup/signup';
-import { HomePage } from '../pages/home/home';
 import { timer } from 'rxjs/observable/timer';
 
 @Component({
@@ -23,11 +20,20 @@ import { timer } from 'rxjs/observable/timer';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = SigninPage;
+  rootPage: any = "HomeClientePage";
 
   pages: Array<{ title: string, component: any }>;
 
-  showSplash=true;
+  sideMenuCliente = [
+    { title: 'Login', component: "SigninPage" },
+    { title: 'SignUp', component: "SignupPage" },
+    { title: 'Inicio', component: "HomeClientePage" },
+    { title: 'Reservar auto', component: "ReservaClientePage" },
+    { title: 'Mis reservas', component: "MisReservasClientePage" },
+    { title: 'Encuesta', component: "EncuestaClienteQrPage" }
+  ];
+
+  showSplash = false;
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
@@ -46,12 +52,7 @@ export class MyApp {
       this.initializeApp();
     }
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Login', component: SigninPage },
-      { title: 'SignUp', component: SignupPage },
-      { title: 'Inicio', component: HomePage }
-
-    ];
+    this.pages = this.sideMenuCliente;
 
   }
 
