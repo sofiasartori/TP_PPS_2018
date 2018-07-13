@@ -13,22 +13,24 @@
 <ion-content padding>
   <ion-content padding>
 
-    <button ion-button block (click)="leerQr()">Leer QR</button>
+    <button ion-button block (click)="leerQR()">Leer QR</button>
 
-    <form #f="ngForm" (ngSubmit)="guardarEncuesta(f)">
+    <button ion-button block (click)="verGraficos()" *ngIf="showForm">Ver estadisticas</button>
+
+    <form #f="ngForm" (ngSubmit)="guardarEncuesta(f)" *ngIf="showForm">
       <ion-list>
 
         <ion-list-header>
           {{user?.formulario?.headerRange}}
         </ion-list-header>
         <ion-item>
-          <ion-range min="0" max="5" [(ngModel)]="calidad" color="calidad" name="calidad" required>
+          <ion-range min="0" max="5" [(ngModel)]="rangeValue" color="rangeValue" name="rangeValue" required>
             <ion-label range-left>0</ion-label>
             <ion-label range-right>5</ion-label>
           </ion-range>
         </ion-item>
 
-        <ion-list radio-group [(ngModel)]="volverViajar" name="volverViajar" required>
+        <ion-list radio-group [(ngModel)]="radioValue" name="radioValue" required>
           <ion-list-header>
             {{user?.formulario?.headerRadio}}
           </ion-list-header>
@@ -45,8 +47,8 @@
           {{user?.formulario?.headerSelect}}
         </ion-list-header>
         <ion-item>
-          <ion-label>Calidad</ion-label>
-          <ion-select [(ngModel)]="calidad" name="calidad" required>
+          <ion-label>Valorización</ion-label>
+          <ion-select [(ngModel)]="selectValue" name="selectValue" required>
             <ion-option value="0">Malo</ion-option>
             <ion-option value="1">Regular</ion-option>
             <ion-option value="2">Bueno</ion-option>
@@ -56,13 +58,13 @@
         </ion-item>
         <ion-item>
           <ion-label> {{user?.formulario?.headerCheck}}</ion-label>
-          <ion-checkbox [(ngModel)]="llego" name="llego" required></ion-checkbox>
+          <ion-checkbox [(ngModel)]="checkValue" name="checkValue" required></ion-checkbox>
         </ion-item>
         <ion-list-header>
           {{user?.formulario?.headerComentario}}
         </ion-list-header>
         <ion-item>
-          <ion-textarea placeholder="Comentario" [ngModel]="comentario" name="comentario" required></ion-textarea>
+          <ion-textarea placeholder="Comentario" [(ngModel)]="comentario" name="comentario" required></ion-textarea>
         </ion-item>
       </ion-list>
       <button ion-button block type="submit" [disabled]="!f.valid">Enviar</button>

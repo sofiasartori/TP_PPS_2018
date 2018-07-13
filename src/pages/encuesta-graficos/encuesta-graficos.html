@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>
+      Charts in Ionic 2
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<!-- color="danger" -->
+<ion-content>
+ 
+    <ion-card>
+      <ion-card-header>
+        {{user?.formulario?.headerRange}}
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvasRange></canvas>
+      </ion-card-content>
+    </ion-card>
+ 
+    <ion-card>
+      <ion-card-header>
+        {{user?.formulario?.headerRadio}}
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvasRadio></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        {{user?.formulario?.headerSelect}}
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvasSelect></canvas>
+      </ion-card-content>
+    </ion-card>
+ 
+    <ion-card>
+      <ion-card-header>
+        {{user?.formulario?.headerCheck}}
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvasCheck></canvas>
+      </ion-card-content>
+    </ion-card>
+ 
+</ion-content>

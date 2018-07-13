@@ -17,6 +17,7 @@ export class FactoryUser {
 export class User {
 
     rol: string;
+    user:string
     formulario: FormularioEncuesta;
     textos: {
         headerRange: string,
@@ -27,6 +28,7 @@ export class User {
     };
     constructor(usuario: UserFb) {
         this.rol = usuario.rol;
+        this.user = usuario.user;
     }
     crearFormulario() {
         return new FormularioEncuesta(
@@ -37,12 +39,16 @@ export class User {
             this.textos.headerComentario
         );
     }
+    guardarEncuesta(range, radio, select, check, comentario, options: OptionsUsuario):firebase.database.ThenableReference{
+        return null;
+    }
+
 
 }
 
 export class Cliente extends User {
     textos = {
-        headerRange: '',
+        headerRange: '¿Que le parecio el estado del auto?',
         headerRadio: '¿Volveria a viajar con nosotros?',
         headerSelect: '¿Que le parecio el viaje?',
         headerCheck: '¿Llego en tiempo?',
@@ -59,11 +65,11 @@ export class Cliente extends User {
             select: select,
             check: check,
             comentario: comentario,
-            objMedido: options.chofer,
-            usuario: options.usuario
+            objMedido: options.objetoAMedir,
+            usuario: this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + options.usuario);
-        refEncuestaUsuario.push(data);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + this.user);
+        return refEncuestaUsuario.push(data);
     }
 
 }
@@ -76,6 +82,7 @@ export class Chofer extends User {
         headerCheck: '¿Tanque lleno?',
         headerComentario: 'Ingrese un comentario'
     }
+    hasType = false;
     constructor(usuario: UserFb) {
         super(usuario);
         this.formulario = this.crearFormulario();
@@ -88,10 +95,11 @@ export class Chofer extends User {
             select: select,
             check: check,
             comentario: comentario,
-            objMedido: options.auto,
+            objMedido: options.objetoAMedir,
+            usuario:this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + options.usuario);
-        refEncuestaUsuario.push(data);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + this.user);
+        return refEncuestaUsuario.push(data);
     }
 }
 
@@ -104,6 +112,7 @@ export class Supervisor extends User {
         headerCheck: 'Cumplio las expectativas',
         headerComentario: 'Ingrese un comentario'
     }
+    hasType = false;
     constructor(usuario: UserFb) {
         super(usuario);
         this.formulario = this.crearFormulario();
@@ -115,11 +124,12 @@ export class Supervisor extends User {
             select: select,
             check: check,
             comentario: comentario,
-            objMedido: options.chofer || options.cliente,
-            tipo: options.tipo
+            objMedido: options.objetoAMedir,
+            tipo: options.tipo,
+            usuario:this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + options.usuario);
-        refEncuestaUsuario.push(data);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + this.user);
+        return refEncuestaUsuario.push(data);
     }
 }
 
@@ -130,6 +140,7 @@ export class FormularioEncuesta {
     headerSelect: string;
     headerCheck: string;
     headerComentario: string;
+    hasType = true;
 
     constructor(headerRange: string,
         headerRadio: string,
@@ -147,7 +158,5 @@ export class FormularioEncuesta {
 export interface OptionsUsuario {
     tipo?: string;
     usuario?: string;
-    chofer?: string;
-    cliente?: string;
-    auto?: string;
+    objetoAMedir?:string;
 }
