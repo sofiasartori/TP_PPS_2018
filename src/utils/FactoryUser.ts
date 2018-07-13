@@ -17,7 +17,7 @@ export class FactoryUser {
 export class User {
 
     rol: string;
-    user:string
+    user: string
     formulario: FormularioEncuesta;
     textos: {
         headerRange: string,
@@ -39,7 +39,7 @@ export class User {
             this.textos.headerComentario
         );
     }
-    guardarEncuesta(range, radio, select, check, comentario, options: OptionsUsuario):firebase.database.ThenableReference{
+    guardarEncuesta(range, radio, select, check, comentario, options: OptionsUsuario): firebase.database.ThenableReference {
         return null;
     }
 
@@ -68,8 +68,11 @@ export class Cliente extends User {
             objMedido: options.objetoAMedir,
             usuario: this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + this.user);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/clientes/' + this.user);
         return refEncuestaUsuario.push(data);
+    }
+    traerEncuestas() {
+        return firebase.database().ref('encuestas/clientes/' + this.user)
     }
 
 }
@@ -96,10 +99,13 @@ export class Chofer extends User {
             check: check,
             comentario: comentario,
             objMedido: options.objetoAMedir,
-            usuario:this.user
+            usuario: this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + this.user);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/choferes/' + this.user);
         return refEncuestaUsuario.push(data);
+    }
+    traerEncuestas() {
+        return firebase.database().ref('encuestas/usuarios/' + this.user)
     }
 }
 
@@ -126,10 +132,13 @@ export class Supervisor extends User {
             comentario: comentario,
             objMedido: options.objetoAMedir,
             tipo: options.tipo,
-            usuario:this.user
+            usuario: this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/usuarios/' + this.user);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/supervisores/' + this.user);
         return refEncuestaUsuario.push(data);
+    }
+    traerEncuestas() {
+        return firebase.database().ref('encuestas/supervisores/' + this.user)
     }
 }
 
@@ -158,5 +167,5 @@ export class FormularioEncuesta {
 export interface OptionsUsuario {
     tipo?: string;
     usuario?: string;
-    objetoAMedir?:string;
+    objetoAMedir?: string;
 }
