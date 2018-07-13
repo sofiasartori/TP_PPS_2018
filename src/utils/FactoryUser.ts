@@ -43,7 +43,9 @@ export class User {
         return null;
     }
 
-
+    traerEncuestas(objetoAMedir: string) :firebase.database.Reference{
+        return null;
+    }
 }
 
 export class Cliente extends User {
@@ -68,11 +70,11 @@ export class Cliente extends User {
             objMedido: options.objetoAMedir,
             usuario: this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/clientes/' + this.user);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/clientes/' + options.objetoAMedir);
         return refEncuestaUsuario.push(data);
     }
-    traerEncuestas() {
-        return firebase.database().ref('encuestas/clientes/' + this.user)
+    traerEncuestas(objetoAMedir: string):firebase.database.Reference {
+        return firebase.database().ref('encuestas/clientes/' + objetoAMedir);
     }
 
 }
@@ -101,11 +103,11 @@ export class Chofer extends User {
             objMedido: options.objetoAMedir,
             usuario: this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/choferes/' + this.user);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/choferes/' + options.objetoAMedir);
         return refEncuestaUsuario.push(data);
     }
-    traerEncuestas() {
-        return firebase.database().ref('encuestas/usuarios/' + this.user)
+    traerEncuestas(objetoAMedir: string) :firebase.database.Reference{
+        return firebase.database().ref('encuestas/usuarios/' + objetoAMedir)
     }
 }
 
@@ -134,11 +136,11 @@ export class Supervisor extends User {
             tipo: options.tipo,
             usuario: this.user
         };
-        const refEncuestaUsuario = firebase.database().ref('encuestas/supervisores/' + this.user);
+        const refEncuestaUsuario = firebase.database().ref('encuestas/supervisores/' + options.objetoAMedir);
         return refEncuestaUsuario.push(data);
     }
-    traerEncuestas() {
-        return firebase.database().ref('encuestas/supervisores/' + this.user)
+    traerEncuestas(objetoAMedir: string):firebase.database.Reference {
+        return firebase.database().ref('encuestas/supervisores/' + objetoAMedir)
     }
 }
 

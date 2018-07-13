@@ -31,6 +31,10 @@ export class EncuestaGraficosPage {
   doughnutChartSelectArray = [];
   doughnutChartCheckArray = [];
   user: User;
+  qrLeido: {
+    dataQr: string,
+    typeQr: string
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
@@ -41,7 +45,7 @@ export class EncuestaGraficosPage {
     console.log(this.user);
   }
   ionViewDidLoad() {
-
+    this.user.traerEncuestas('cliente')
     this.barChartRange = new Chart(this.barCanvasRange.nativeElement, {
 
       type: 'bar',

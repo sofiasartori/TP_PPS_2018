@@ -67,7 +67,7 @@ export class EncuestaClienteQrPage {
   }
 
   verGraficos() {
-    this.navCtrl.push('EncuestaGraficosPage', { user: this.user });
+    this.navCtrl.push('EncuestaGraficosPage', { user: this.user, qr: { typeQr: this.typeQr, dataQr: this.dataQr } });
   }
   leerQR() {
     this.barcodeScanner.scan().then((barcodeData) => {
