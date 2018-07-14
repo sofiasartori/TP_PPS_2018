@@ -8,19 +8,19 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { StorageFbProvider } from '../../providers/storage-fb';
 import { HomePage } from '../home/home';
 import { AuthFbProvider } from '../../providers/auth-fb/auth-fb';
-import { FactoryUser } from '../../utils/FactoryUser';
 
 @IonicPage()
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html',
+  selector: 'page-alta-choferes',
+  templateUrl: 'alta-choferes.html',
 })
-export class SignupPage {
-  email = 'pabloearg@gmail.com'
+export class AltaChoferesPage {
+
+  email = 'chofer1@gmail.com'
   password = "123456";
-  direccion = "Gorriti 11 Lomas de zamora";
+  nombre = "Cacho";
+  apellido = "Gutierrez"
   foto = '';
-  fotoPantalla = '';
   cameraOptions: CameraOptions = {
     quality: 10,
     destinationType: this.camera.DestinationType.FILE_URI,
@@ -38,26 +38,35 @@ export class SignupPage {
   ) {
   }
 
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AltaChoferesPage');
+  }
   onSignup(form: NgForm) {
     const loading = this.loadingCtrl.create({
-      content: 'Signing you up...'
+      content: 'Creando Chofer...'
     });
     loading.present();
     this.auth.signup(form.value.email, form.value.password)
       .then(data => {
-        this.auth.signin(form.value.email, form.value.password)
-          .then(data => {
-            console.log("log-in", data)
-            loading.dismiss();
-            const user = form.value.email.split('@')[0];
-            const userFb = { email: form.value.email, direccion: form.value.direccion, user: user, rol: 'cliente' }
-            this.database.guardarUsuario(userFb);
-            this.auth.setUser(userFb);
-            this.storageFb.uploadPhoto(this.foto, form.value.email);
-            this.navCtrl.setRoot(HomePage);
-          }).catch(error => {
-            loading.dismiss();
-          })
+        console.log("log-in", data)
+        loading.dismiss();
+        const user = this.email.split('@')[0];
+        const userFb = {
+          email: this.email,
+          nombre: this.nombre,
+          apellido: this.apellido,
+          user: user,
+          rol: 'chofer'
+        }
+        this.database.guardarUsuario(userFb);
+        this.database.guardarChofer(userFb);
+        this.auth.setUser(userFb);
+        this.storageFb.uploadPhoto(this.foto, this.email);
+        loading.dismiss(); 
+        alert('Chofer creado correctamente');
+        this.navCtrl.pop();       
+        // this.navCtrl.setRoot(HomePage);
       }).catch(error => {
         loading.dismiss();
         const alert = this.alertCtrl.create({
@@ -69,15 +78,6 @@ export class SignupPage {
       });
   }
 
-  sacarFoto() {
-    this.camera.getPicture(this.cameraOptions).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      this.foto = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      // Handle error
-    });
-  }
   takePhoto() {
     this.camera.getPicture({
       quality: 10,
@@ -87,14 +87,10 @@ export class SignupPage {
       saveToPhotoAlbum: true
     }).then(imageData => {
       this.foto = imageData;
-      this.fotoPantalla = 'data:image/jpeg;base64,' + imageData;
       // this.storageFb.uploadPhoto(this.foto);
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
     });
   }
-  guardarFoto() {
-    this.storageFb.uploadPhoto(this.foto, this.email);
-  }
-}
 
+}

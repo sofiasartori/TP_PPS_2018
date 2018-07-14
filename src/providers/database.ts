@@ -31,7 +31,18 @@ export class DatabaseProvider {
     )
     // this.refUsers.on()
   }
-
+  guardarChofer(usuario: any) {
+    this.refUsers = firebase.database().ref('choferes' + usuario.user);
+    this.refUsers.push(usuario,
+      data => console.log('guardar-usuario', data)
+    )
+  }
+  guardarAuto(auto: { marca: string, modelo: string, anio: string, patente: string }) {
+    this.refUsers = firebase.database().ref('autos/' + auto.patente);
+    this.refUsers.push(auto,
+      data => console.log('guardar-usuario', data)
+    )
+  }
   getUserInfo(email: string) {
     const user = email.split('@')[0];
     this.dataUserFb.user = user;

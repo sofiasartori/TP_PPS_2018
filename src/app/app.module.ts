@@ -15,6 +15,9 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { DatabaseProvider } from '../providers/database';
 import { StorageFbProvider } from '../providers/storage-fb';
 import { BarcodeScanner } from '../../node_modules/@ionic-native/barcode-scanner';
+import { AuthFbProvider } from '../providers/auth-fb/auth-fb';
+import { Geolocation } from '@ionic-native/geolocation';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { BarcodeScanner } from '../../node_modules/@ionic-native/barcode-scanner
     DatePicker,
     DatabaseProvider,
     StorageFbProvider,
-    BarcodeScanner
+    BarcodeScanner,
+    AuthFbProvider,
+    LaunchNavigator,
+    Geolocation
   ]
 })
 export class AppModule { }

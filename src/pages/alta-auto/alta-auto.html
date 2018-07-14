@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Alta Auto</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form #AA="ngForm" (ngSubmit)="onSignup(AA)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Marca</ion-label>
+        <ion-input type="text" [ngModel]="marca" name="marca" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Modelo</ion-label>
+        <ion-input type="text" [ngModel]="modelo" name="modelo" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Año</ion-label>
+        <ion-input type="text" [ngModel]="anio" name="anio" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Patente</ion-label>
+        <ion-input type="text" [ngModel]="patente" name="patente" required></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button block type="submit" [disabled]="!AA.valid && !(fotos.length>2)">Guardar Auto</button>
+  </form>
+
+  <ion-grid style="height: 150px;">
+    <ion-row>
+      <ion-col col-4 class="col-foto" *ngIf="fotos.length>0">
+        <img [src]="'data:image/jpeg;base64,'+fotos[0]" class="foto">
+      </ion-col>
+      <ion-col col-4 class="col-foto" *ngIf="fotos.length>1">
+        <img [src]="'data:image/jpeg;base64,'+fotos[1]" class="foto">
+      </ion-col>
+      <ion-col col-4 class="col-foto" *ngIf="fotos.length>2">
+        <img [src]="'data:image/jpeg;base64,'+fotos[2]" class="foto">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button block (click)="takePhoto()" required>Sacar Foto</button>
+
+</ion-content>

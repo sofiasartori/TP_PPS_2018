@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { LoadingController, AlertController, NavController,IonicPage } from "ionic-angular";
+import { LoadingController, AlertController, NavController, IonicPage } from "ionic-angular";
 
 import firebase from 'firebase';
 
 import { AuthService } from "../../providers/auth";
 import { HomePage } from '../home/home';
 import { DatabaseProvider } from '../../providers/database';
+import { AuthFbProvider } from '../../providers/auth-fb/auth-fb';
+import { FactoryUser } from '../../utils/FactoryUser';
+import { UserFb } from '../../models/user-fb';
 // import { SignupPage } from '../signup/signup';
-/**
- * Generated class for the SigninPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+
 
 @IonicPage()
 @Component({
@@ -22,14 +21,15 @@ import { DatabaseProvider } from '../../providers/database';
 })
 export class SigninPage {
 
-  mail = "pabloearg@gmail.com";
+  mail = "supervisor@gmail.com";
   password = "123456";
 
   constructor(private authService: AuthService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public navCtrl: NavController,
-    private database: DatabaseProvider) {
+    private database: DatabaseProvider,
+    public auth: AuthFbProvider) {
   }
 
   onSignin(form: NgForm) {
@@ -37,21 +37,23 @@ export class SigninPage {
       content: 'Iniciando sesión...'
     });
     loading.present();
-    this.database.signin(form.value.email, form.value.password)
+    this.auth.signin(form.value.mail, form.value.password)
       .then(data => {
         loading.dismiss();
         // firebase.auth().currentUser.
-        let ref = this.database.getUserInfo(this.mail);
+        let ref = this.database.getUserInfo(form.value.mail);
         ref.on('value', snapshot => {
           snapshot.forEach(dataUser => {
             this.database.setUser(dataUser);
+            this.auth.setUser(dataUser.val());
             switch (dataUser.val().rol) {
               case 'cliente':
                 this.navCtrl.setRoot("EncuestaClienteQrPage");
                 break;
               case 'chofer':
                 break;
-              case 'administrador':
+              case 'supervisor':
+                this.navCtrl.setRoot("HomeSupervisorPage");
                 break;
               default:
                 break;

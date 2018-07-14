@@ -28,13 +28,21 @@
         </ion-item>
         <ion-item [hidden]="true">
           <ion-label fixed>foto</ion-label>
-          <ion-input type="foto" [ngModel]="foto" name="foto"></ion-input>
+          <ion-input type="foto" [ngModel]="foto" name="foto" ></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button block type="submit" [disabled]="!f.valid">Signup</button>
+      <button ion-button block type="submit" [disabled]="!f.valid">Crear Usuario</button>
     </form>
   
-    <button ion-button (click)="takePhoto()" required>Sacar Foto</button>
-  
+    <button block ion-button (click)="takePhoto()" required>Sacar Foto</button>
+    <ion-grid style="height: 150px;">
+        <ion-row>
+          <ion-col col-4 offset-4 class="col-foto" *ngIf="foto">
+            <img [src]="'data:image/jpeg;base64,'+ foto" class="foto">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    <!-- 'data:image/jpeg;base64,' -->
   </ion-content>
   

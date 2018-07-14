@@ -31,4 +31,28 @@ export class StorageFbProvider {
         // this.myPhotoURL = savedPicture.downloadURL;
       });
   }
+
+  uploadPhotoAuto(foto, patente, index): void {
+    // const mail = firebase.auth().currentUser.email;
+    // const usuario = mail.split('@')[0];
+    // console.log(usuario);
+    this.refFotos = firebase.storage().ref('fotos/autos/' + patente);
+    this.refFotos.child(index + '.jpeg')
+      .putString(foto, 'base64', { contentType: 'image/jpeg' })
+      .then((savedPicture) => {
+        // this.myPhotoURL = savedPicture.downloadURL;
+      });
+  }
+
+  uploadPhotoEncuesta(foto, key): void {
+    // const mail = firebase.auth().currentUser.email;
+    // const usuario = mail.split('@')[0];
+    // console.log(usuario);
+    this.refFotos = firebase.storage().ref('fotos/encuesta/');
+    this.refFotos.child(key + '.jpeg')
+      .putString(foto, 'base64', { contentType: 'image/jpeg' })
+      .then((savedPicture) => {
+        // this.myPhotoURL = savedPicture.downloadURL;
+      });
+  }
 }
