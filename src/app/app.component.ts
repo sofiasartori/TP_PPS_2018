@@ -13,6 +13,7 @@ import { ToastController } from 'ionic-angular';
 import { Subject } from 'rxjs/Subject';
 import { tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
+import { ConfigProvider } from '../providers/config';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +23,7 @@ export class MyApp {
 
   rootPage: any = "SigninPage";
 
-  pages: Array<{ title: string, component: any }>;
+  // pages: Array<{ title: string, component: any }>;
 
   sideMenuCliente = [
     { title: 'Login', component: "SigninPage" },
@@ -38,7 +39,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public fcm: FcmProvider,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    public configP: ConfigProvider) {
     // console.log("es android", this.platform._platforms)
     firebase.initializeApp({
       apiKey: "AIzaSyAUpIAlovUT_t0CEgThZcbEd3jHNA4OQ9s",
@@ -52,7 +54,7 @@ export class MyApp {
       this.initializeApp();
     }
     // used for an example of ngFor and navigation
-    this.pages = this.sideMenuCliente;
+    // this.pages = this.configP.sideMenu;
 
   }
 

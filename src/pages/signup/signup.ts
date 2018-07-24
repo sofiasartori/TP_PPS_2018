@@ -9,6 +9,7 @@ import { StorageFbProvider } from '../../providers/storage-fb';
 import { HomePage } from '../home/home';
 import { AuthFbProvider } from '../../providers/auth-fb/auth-fb';
 import { FactoryUser } from '../../utils/FactoryUser';
+import { ConfigProvider } from '../../providers/config';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,8 @@ export class SignupPage {
     private camera: Camera,
     private storageFb: StorageFbProvider,
     public navCtrl: NavController,
-    public auth: AuthFbProvider
+    public auth: AuthFbProvider,
+    public config: ConfigProvider
   ) {
   }
 
@@ -54,7 +56,20 @@ export class SignupPage {
             this.database.guardarUsuario(userFb);
             this.auth.setUser(userFb);
             this.storageFb.uploadPhoto(this.foto, form.value.email);
-            this.navCtrl.setRoot(HomePage);
+            this.config.sideMenu = this.auth.user.sideMenu;
+            // this.navCtrl.setRoot(HomePage);
+            switch (this.auth.user.rol) {
+              case 'cliente':
+                this.navCtrl.setRoot("EncuestaClienteQrPage");
+                break;
+              case 'chofer':
+                break;
+              case 'supervisor':
+                this.navCtrl.setRoot("HomeSupervisorPage");
+                break;
+              default:
+                break;
+            }
           }).catch(error => {
             loading.dismiss();
           })

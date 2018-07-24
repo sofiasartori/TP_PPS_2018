@@ -14,10 +14,11 @@ import { AuthService } from '../providers/auth';
 import { DatePicker } from '@ionic-native/date-picker';
 import { DatabaseProvider } from '../providers/database';
 import { StorageFbProvider } from '../providers/storage-fb';
-import { BarcodeScanner } from '../../node_modules/@ionic-native/barcode-scanner';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AuthFbProvider } from '../providers/auth-fb/auth-fb';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { ConfigProvider } from '../providers/config';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
     BarcodeScanner,
     AuthFbProvider,
     LaunchNavigator,
-    Geolocation
+    Geolocation,
+    ConfigProvider
   ]
 })
 export class AppModule { }
