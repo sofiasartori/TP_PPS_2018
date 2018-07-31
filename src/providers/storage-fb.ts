@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { context_fotos_fb } from '../properties';
+import { AuthFbProvider } from './auth-fb/auth-fb';
 
 /*
   Generated class for the StorageFbProvider provider.
@@ -13,7 +14,9 @@ export class StorageFbProvider {
 
   refFotos: firebase.storage.Reference;
 
-  constructor() {
+  constructor(
+    public auth: AuthFbProvider,
+  ) {
     console.log('Hello DatabaseProvider Provider');
     this.refFotos = firebase.storage().ref(context_fotos_fb);
   }
@@ -30,6 +33,10 @@ export class StorageFbProvider {
       .then((savedPicture) => {
         // this.myPhotoURL = savedPicture.downloadURL;
       });
+  }
+
+  getClientPhotoUrl() {
+    return firebase.storage().ref(context_fotos_fb + this.auth.getActiveUser().email+'.jpeg').getDownloadURL();
   }
 
   uploadPhotoAuto(foto, patente, index): void {

@@ -62,7 +62,7 @@ export class DatabaseProvider {
     return firebase.auth().currentUser.email;
   }
   guardarNuevaRuta(data: Recorrido) {
-    const recorrido = { ...data, email: this.dataUserFb.user, direccion: this.dataUserFb.direccion }
+    const recorrido = { ...data, email: firebase.auth().currentUser, direccion: this.dataUserFb.direccion }
     const refRutas = firebase.database().ref('viajes');
     const refUsuario = firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase);
     refUsuario.update({ recorrido: recorrido });
@@ -70,10 +70,16 @@ export class DatabaseProvider {
   }
 
   guardarReserva(data: Recorrido) {
-    const recorrido = { ...data, email: this.dataUserFb.user, direccion: this.dataUserFb.direccion }
-    const refReservas = firebase.database().ref('reserva');
-    const refUsuario = firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase);
-    refUsuario.update({ recorrido: recorrido });
-    refReservas.push(recorrido);
+    const recorrido = { ...data, email: firebase.auth().currentUser.email, cliente: this.dataUserFb.user }
+    const refReservas = firebase.database().ref('reservas');
+    // const refUsuario = firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase);
+    // refUsuario.update({ recorrido: recorrido });
+    return refReservas.push(recorrido);
+  }
+  getReservas(){
+    return firebase.database().ref('reservas');
+    //.child(this.dataUserFb.id_firebase).child('reservas');
+
+    // return firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase).child('reservas');
   }
 }

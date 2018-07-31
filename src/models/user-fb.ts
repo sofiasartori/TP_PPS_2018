@@ -8,9 +8,10 @@ export interface UserFb {
 }
 
 export interface Recorrido {
-    direccion?: string;
+    origen?: string;
     hora?: string;
     destino?: string;
-    email?: string;
+    cliente?: string;
     chofer?: string;
+    email?: string;
 }

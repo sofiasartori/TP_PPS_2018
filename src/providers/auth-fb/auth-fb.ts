@@ -22,6 +22,10 @@ export class AuthFbProvider {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
 
+  changePassword(newPass: string) {
+    return firebase.auth().currentUser.updatePassword(newPass);
+  }
+
   logout() {
     firebase.auth().signOut();
   }

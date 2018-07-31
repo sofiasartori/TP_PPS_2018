@@ -22,12 +22,12 @@
         </ion-item>
         <ion-item>
           <ion-label fixed>Hora</ion-label>
-          <ion-input type="text" [ngModel]="hora" name="hora" required disabled></ion-input>
+          <ion-input type="text" [ngModel]="hora" name="hora" required disabled (click)="getHora()"></ion-input>
         </ion-item>
       </ion-list>
       <button ion-button block type="submit" [disabled]="!f.valid">Pedir Auto</button>
     </form>
-    <button ion-button (click)="getHora()">Eligir hora</button>
+    <!-- <button ion-button (click)="getHora()">Eligir hora</button> -->
 
   </div>
 </ion-content>

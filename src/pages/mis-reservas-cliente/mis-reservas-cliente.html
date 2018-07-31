@@ -4,12 +4,32 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Encuesta</ion-title>
+    <ion-title>Mis reservas</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item [hidden]="true" *ngFor="let reserva of reservas">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-9>
+            <h2>Origen:</h2>
+            <p>{{reserva.destino}}</p>
+            <h2>Destino:</h2>
+            <p>{{reserva.destino}}</p>
+          </ion-col>
+          <ion-col text-right col-3>
+            <h3>Hora</h3>
+            <h3>{{reserva.hora}}</h3>
+            <!-- <p>Mts</p> -->
+            <ion-icon name="arrow-forward" color="azulMenu"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
+    </ion-item>
+  </ion-list>
 </ion-content>

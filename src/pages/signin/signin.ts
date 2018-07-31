@@ -23,7 +23,7 @@ import { ConfigProvider } from '../../providers/config';
 export class SigninPage {
 
   mail = "sartorisofiaines@gmail.com";
-  password = "123456";
+  password = "asdfasdf";
 
   constructor(private authService: AuthService,
     private loadingCtrl: LoadingController,

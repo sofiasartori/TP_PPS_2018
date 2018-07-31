@@ -1,10 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-    <ion-title>Reserva</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Agendar Viaje</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,15 +14,19 @@
   <form #f="ngForm" (ngSubmit)="generarReserva(f)">
     <ion-list>
       <ion-item>
-        <ion-label fixed>Destino</ion-label>
-        <ion-input type="text" [ngModel]="destino" name="destino" required></ion-input>
+        <ion-label fixed>Desde</ion-label>
+        <ion-input type="text" [(ngModel)]="origen" name="origen" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Llegada</ion-label>
-        <ion-input type="text" [ngModel]="dia_hora" name="dia_hora" required disabled></ion-input>
+        <ion-label fixed>Hasta</ion-label>
+        <ion-input type="text" [(ngModel)]="destino" name="destino" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Hora Llegada</ion-label>
+        <ion-input type="text" [(ngModel)]="dia_hora" name="dia_hora" required (click)="getTiempo()"></ion-input>
       </ion-item>
     </ion-list>
     <button ion-button block type="submit" [disabled]="!f.valid">Reservar Auto</button>
   </form>
-  <button ion-button (click)="getHora()">Eligir fecha</button>
+  <!-- <button ion-button (click)="getTiempo()">Eligir fecha</button> -->
 </ion-content>
