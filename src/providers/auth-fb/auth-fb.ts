@@ -15,7 +15,10 @@ export class AuthFbProvider {
 
 
   signup(email: string, password: string) {
-    return firebase.auth().createUserWithEmailAndPassword(email, password);
+    return firebase.auth().createUserWithEmailAndPassword(email, password).then(user => {
+      firebase.auth().currentUser.sendEmailVerification();
+      return user;
+    });
   }
 
   signin(email: string, password: string) {

@@ -32,7 +32,7 @@ export class DatabaseProvider {
     // this.refUsers.on()
   }
   guardarChofer(usuario: any) {
-    this.refUsers = firebase.database().ref('choferes' + usuario.user);
+    this.refUsers = firebase.database().ref('choferes/' + usuario.user);
     this.refUsers.push(usuario,
       data => console.log('guardar-usuario', data)
     )

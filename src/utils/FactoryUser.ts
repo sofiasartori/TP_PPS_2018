@@ -70,7 +70,8 @@ export class Cliente extends User {
         { title: 'Reservar auto', component: "ReservaClientePage" },
         { title: 'Mis reservas', component: "MisReservasClientePage" },
         { title: 'Encuesta', component: "EncuestaClienteQrPage" },
-        { title: 'Mis datos', component: "AccountPage" }
+        { title: 'Mis datos', component: "AccountPage" },
+        {title : "Mapa",component:"MapaRutaPage"}
     ];
     constructor(usuario: UserFb) {
         super(usuario);
@@ -149,10 +150,9 @@ export class Supervisor extends User {
     sideMenu = [
         // { title: 'Login', component: "SigninPage" },
         // { title: 'SignUp', component: "SignupPage" },
-        { title: 'Inicio', component: "HomeClientePage" },
-        { title: 'Reservar auto', component: "ReservaClientePage" },
-        { title: 'Mis reservas', component: "MisReservasClientePage" },
-        { title: 'Encuesta', component: "EncuestaClienteQrPage" }
+        { title: 'Bienvenido', component: "HomeSupervisorPage" },
+        { title: 'Alta Chofer', component: "AltaChoferesPage" },
+        { title: 'Alta Auto', component: "AltaAutoPage" }
     ];
     hasType = false;
     constructor(usuario: UserFb) {
