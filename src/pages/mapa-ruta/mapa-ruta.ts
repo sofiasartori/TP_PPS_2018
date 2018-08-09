@@ -82,11 +82,11 @@ export class MapaRutaPage {
     });
 
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
-      let marker = new google.maps.Marker({
-        position: myLatLng,
-        map: this.map,
-        title: 'Hello World!'
-      });
+      // let marker = new google.maps.Marker({
+      //   position: myLatLng,
+      //   map: this.map,
+      //   title: 'Hello World!'
+      // });
       mapEle.classList.add('show-map');
       this.directionsService = new google.maps.DirectionsService();
       this.directionsDisplay = new google.maps.DirectionsRenderer();

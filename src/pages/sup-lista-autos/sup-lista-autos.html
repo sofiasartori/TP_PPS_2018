@@ -1,0 +1,53 @@
+<!--
+  Generated template for the SupListaAutosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Lista Autos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="editarAuto(f)" *ngIf="mostrarForm">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Nombre</ion-label>
+        <ion-input type="text" [(ngModel)]="selectedAuto.marca" name="marca"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Apellido</ion-label>
+        <ion-input type="text" [(ngModel)]="selectedAuto.modelo" name="modelo" required></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button block type="submit" [disabled]="!f.valid">Editar</button>
+  </form>
+  <ion-list>
+    <ion-item-sliding *ngFor="let auto of autos" #slading>
+      <ion-item>
+        <!-- <ion-avatar item-start >
+              <img [src]="(user.activo)?'assets/imgs/active.png':'assets/imgs/disabled.png'">
+            </ion-avatar> -->
+        <h2>{{auto.patente}}</h2>
+        <p>{{auto.marca + ' ' +auto.modelo}}</p>
+        <p>{{auto.anio}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="light" icon-start (click)="editar(auto,slading)">
+          <ion-icon name="ios-more"></ion-icon>
+          Editar
+        </button>
+        <button ion-button color="primary" icon-start (click)="eliminar(auto,slading)">
+          <ion-icon name="text"></ion-icon>
+          Elimninar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+</ion-content>

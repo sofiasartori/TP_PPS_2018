@@ -42,6 +42,15 @@ export class AltaChoferesPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AltaChoferesPage');
   }
+
+  vaciarForm() {
+    this.email = ''
+    this.password = "";
+    this.nombre = "";
+    this.apellido = ""
+    this.foto = '';
+  }
+
   onSignup(form: NgForm) {
     const loading = this.loadingCtrl.create({
       content: 'Creando Chofer...'
@@ -63,9 +72,10 @@ export class AltaChoferesPage {
         this.database.guardarChofer(userFb);
         this.auth.setUser(userFb);
         this.storageFb.uploadPhoto(this.foto, this.email);
-        loading.dismiss(); 
+        loading.dismiss();
         alert('Chofer creado correctamente');
-        this.navCtrl.pop();       
+        this.vaciarForm();
+        // this.navCtrl.pop();
         // this.navCtrl.setRoot(HomePage);
       }).catch(error => {
         loading.dismiss();

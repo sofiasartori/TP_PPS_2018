@@ -1,0 +1,58 @@
+<!--
+  Generated template for the SuListaViajesPendientesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Viajes Pendientes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form #f="ngForm" (ngSubmit)="editarpendiente(f)" *ngIf="mostrarForm">
+    <ion-item>
+      <ion-label>Choferes</ion-label>
+      <ion-select [(ngModel)]="selectValue" name="selectValue">
+        <ion-option *ngFor="let chofer of choferes" [value]="chofer.user">{{chofer.user}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <button ion-button block type="submit" [disabled]="!f.valid">Editar</button>
+  </form>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let pendiente of pendientes" #slading>
+      <ion-item>
+        <ion-avatar item-start>
+          <img [src]="(pendiente.chofer)?'assets/imgs/active.png':'assets/imgs/disabled.png'">
+        </ion-avatar>
+        <h2>Cliente: {{pendiente.cliente}}</h2>
+        <p>Email Cliente: {{pendiente.email}}</p>
+        <p>Fecha: {{pendiente.hora}}</p>
+        <p>Origen: {{pendiente.origen}}</p>
+        <p>Destino: {{pendiente.destino}}</p>
+        <p>Chofer: {{pendiente.chofer}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="secondary" icon-start (click)="verElMapa(pendiente,slading)">
+          <ion-icon name="map"></ion-icon>
+          Mapa
+        </button>
+        <button ion-button color="light" *ngIf="!pendiente.chofer" icon-start (click)="asignarpendiente(pendiente,slading)">
+          <ion-icon name="ios-more"></ion-icon>
+          Tomar Viaje
+        </button>
+        <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="cancelarpendiente(pendiente,slading)">
+          <ion-icon name="text"></ion-icon>
+          Cancelar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+</ion-content>

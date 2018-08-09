@@ -12,14 +12,14 @@ import { DatabaseProvider } from '../../providers/database';
   templateUrl: 'encuesta-cliente-qr.html',
 })
 export class EncuestaClienteQrPage {
-  dataQr: string = 'asdjhajkdhjkahdjkahs';
-  typeQr: string = 'P';
+  key: string = 'asdjhajkdhjkahdjkahs';
+  patente: string = 'P';
   rangeValue: string;
   radioValue: string;
   selectValue: string;
   checkValue: string;
   comentario: string;
-  showForm = true;
+  showForm = false;
   user: User;
 
   constructor(
@@ -45,8 +45,8 @@ export class EncuestaClienteQrPage {
       this.checkValue,
       this.comentario,
       {
-        objetoAMedir: this.dataQr,
-        tipo: this.typeQr,
+        objetoAMedir: this.key,
+        tipo: this.patente,
       }).key
 
     if (!key) {
@@ -67,20 +67,27 @@ export class EncuestaClienteQrPage {
   }
 
   verGraficos() {
-    this.navCtrl.push('EncuestaGraficosPage', { user: this.user, qr: { typeQr: this.typeQr, dataQr: this.dataQr } });
+    this.navCtrl.push('EncuestaGraficosPage', { user: this.user, qr: { patente: this.patente, key: this.key } });
   }
   leerQR() {
     this.barcodeScanner.scan().then((barcodeData) => {
       if (barcodeData.text) {
-        const data = barcodeData.text.split(':');
-        this.dataQr = data[0];
-        this.typeQr = data[1];
-        if ((this.dataQr && this.typeQr)) {
+        const data = barcodeData.text.split('/');
+        this.key = data[1];
+        this.patente = data[0];
+        if ((this.key && this.patente)) {
           this.showForm = true;
         } else {
           alert('El QR leido no es valido');
           this.showForm = false;
         }
+      } else {
+        this.key = 'POP111';
+        this.patente = '-LJMIoAG3zWwy6o3sSF3';
+        if ((this.key && this.patente)) {
+          this.showForm = true;
+        }
+        alert(this.key)
       }
     }, (err) => {
       alert(err);

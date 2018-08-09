@@ -11,6 +11,8 @@ export class FactoryUser {
                 return new Chofer(usuario);
             case 'supervisor':
                 return new Supervisor(usuario);
+            case 'su':
+                return new SuperUser(usuario);
         }
     }
 }
@@ -71,7 +73,7 @@ export class Cliente extends User {
         { title: 'Mis reservas', component: "MisReservasClientePage" },
         { title: 'Encuesta', component: "EncuestaClienteQrPage" },
         { title: 'Mis datos', component: "AccountPage" },
-        {title : "Mapa",component:"MapaRutaPage"}
+        { title: "Mapa", component: "MapaRutaPage" }
     ];
     constructor(usuario: UserFb) {
         super(usuario);
@@ -152,7 +154,14 @@ export class Supervisor extends User {
         // { title: 'SignUp', component: "SignupPage" },
         { title: 'Bienvenido', component: "HomeSupervisorPage" },
         { title: 'Alta Chofer', component: "AltaChoferesPage" },
-        { title: 'Alta Auto', component: "AltaAutoPage" }
+        { title: 'Alta Auto', component: "AltaAutoPage" },
+        { title: 'SupListaChoferPage', component: "SupListaChoferPage" },
+        { title: 'SupListaAutosPage', component: "SupListaAutosPage" },
+        { title: 'SupEncuestaPage', component: "SupEncuestaPage" },
+        { title: 'Alta Auto', component: "AltaAutoPage" },
+        { title: "Reservas", component: "SupListaViajesPage" },
+        { title: "Viajes Pendientes", component: "SuListaViajesPendientesPage" }
+
     ];
     hasType = false;
     constructor(usuario: UserFb) {
@@ -175,6 +184,21 @@ export class Supervisor extends User {
     }
     traerEncuestas(objetoAMedir: string): firebase.database.Reference {
         return firebase.database().ref('encuestas/supervisores/' + objetoAMedir)
+    }
+}
+
+export class SuperUser extends User {
+
+    sideMenu = [
+        // { title: 'Login', component: "SigninPage" },
+        // { title: 'SignUp', component: "SignupPage" },
+        { title: 'SuListUsersPage', component: "SuListUsersPage" }
+        // { title: 'Alta Chofer', component: "AltaChoferesPage" },
+        // { title: 'Alta Auto', component: "AltaAutoPage" }
+    ];
+    hasType = false;
+    constructor(usuario: UserFb) {
+        super(usuario);
     }
 }
 

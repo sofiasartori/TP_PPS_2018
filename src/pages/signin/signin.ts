@@ -22,7 +22,7 @@ import { ConfigProvider } from '../../providers/config';
 })
 export class SigninPage {
 
-  mail = "supervisor_1@gmail.com";
+  mail = "chofer1@gmail.com";
   password = "123456";
 
   constructor(private authService: AuthService,
@@ -41,7 +41,7 @@ export class SigninPage {
     loading.present();
     this.auth.signin(form.value.mail, form.value.password)
       .then(data => {
-       
+
         // firebase.auth().currentUser.
         let ref = this.database.getUserInfo(form.value.mail);
         ref.on('value', snapshot => {
@@ -53,15 +53,22 @@ export class SigninPage {
             this.config.setSideMenu(this.auth.user.sideMenu);
             this.config.sideMenu;
             // sideMenu = this.auth.user.sideMenu;
-
+            if (!dataUser.val().activo) {
+              alert("Este usuario ha sido bloqueado")
+              return;
+            }
             switch (this.auth.user.rol) {
               case 'cliente':
                 this.navCtrl.setRoot("EncuestaClienteQrPage");
                 break;
               case 'chofer':
+                this.navCtrl.setRoot("ChoferListaViajesPendientesPage");
                 break;
               case 'supervisor':
                 this.navCtrl.setRoot("HomeSupervisorPage");
+                break;
+              case 'su':
+                this.navCtrl.setRoot("SuListUsersPage");
                 break;
               default:
                 break;

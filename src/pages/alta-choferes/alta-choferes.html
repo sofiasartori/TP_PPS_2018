@@ -33,7 +33,7 @@
         <ion-input type="foto" [(ngModel)]="foto" name="foto"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!f.valid && !foto">Crear Chofer</button>
+    <button ion-button block type="submit" [disabled]="!f.valid || !foto">Crear Chofer</button>
   </form>
   <ion-grid style="height: 150px;">
     <ion-row>

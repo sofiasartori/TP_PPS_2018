@@ -18,7 +18,7 @@ import { NgForm } from "@angular/forms";
   templateUrl: 'home-cliente.html',
 })
 export class HomeClientePage {
-
+  origen = 'Obelisco'
   destino = 'Gorriti 11 Lomas de zamora';
   hora = '10-15';
   tieneViajes = false;
@@ -51,6 +51,6 @@ export class HomeClientePage {
   generarPedido(form: NgForm) {
     const hora = this.hora;
     const destino = form.value.destino;
-    this.database.guardarNuevaRuta({ hora: hora, destino: destino })
+    this.database.guardarNuevaRuta({ hora: hora, destino: destino, origen: form.value.origen })
   }
 }

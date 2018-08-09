@@ -17,7 +17,7 @@ import { ConfigProvider } from '../../providers/config';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  email = 'pabloearg@gmail.com'
+  email = 'supervisor_1@gmail.com'
   password = "123456";
   direccion = "Gorriti 11 Lomas de zamora";
   foto = '';
@@ -52,7 +52,7 @@ export class SignupPage {
             console.log("log-in", data)
             loading.dismiss();
             const user = form.value.email.split('@')[0];
-            const userFb = { email: form.value.email, direccion: form.value.direccion, user: user, rol: 'cliente' }
+            const userFb = { email: form.value.email, direccion: form.value.direccion, user: user, rol: 'cliente',activo:true }
             this.database.guardarUsuario(userFb);
             this.auth.setUser(userFb);
             this.storageFb.uploadPhoto(this.foto, form.value.email);

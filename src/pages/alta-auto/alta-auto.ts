@@ -53,19 +53,20 @@ export class AltaAutoPage {
     loading.present();
 
     const auto = {
-      marca :form.value.marca,
-      modelo :form.value.modelo,
-      anio :form.value.anio,
-      patente :form.value.patente,
+      marca: form.value.marca,
+      modelo: form.value.modelo,
+      anio: form.value.anio,
+      patente: form.value.patente,
     }
     this.database.guardarAuto(auto);
     this.fotos.forEach((foto, index) => {
       this.storageFb.uploadPhotoAuto(foto, form.value.patente, index);
+      this.vaciarForm();
     });
     // this.navCtrl.setRoot(HomePage);
     loading.dismiss();
     alert('Auto creado correctamente');
-    this.navCtrl.pop(); 
+    // this.navCtrl.pop();
   }
 
   takePhoto() {
@@ -82,7 +83,11 @@ export class AltaAutoPage {
       console.log("ERROR -> " + JSON.stringify(error));
     });
   }
-
-
-
+  vaciarForm() {
+    this.fotos.length = 0;
+    this.marca = '';
+    this.modelo = '';
+    this.anio = '';
+    this.patente = '';
+  }
 }

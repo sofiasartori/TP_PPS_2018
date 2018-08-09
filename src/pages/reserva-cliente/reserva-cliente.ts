@@ -17,7 +17,7 @@ import { DatePicker } from '../../../node_modules/@ionic-native/date-picker';
   templateUrl: 'reserva-cliente.html',
 })
 export class ReservaClientePage {
-  dia_hora = '10-10-2018-T10-10';
+  dia_hora = new Date().toISOString();
   destino = 'Gorriti 10';
   origen = 'Somellera 409';
   constructor(public navCtrl: NavController,

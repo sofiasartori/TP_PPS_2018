@@ -29,7 +29,7 @@
         <ion-input type="text" [(ngModel)]="patente" name="patente" required></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!AA.valid && !(fotos.length>2)">Guardar Auto</button>
+    <button ion-button block type="submit" [disabled]="!AA.valid  || !(fotos.length>2)">Guardar Auto</button>
   </form>
 
   <ion-grid style="height: 150px;">

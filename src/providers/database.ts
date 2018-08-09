@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { context_usuarios_fb } from '../properties';
 import { UserFb, Recorrido } from '../models/user-fb';
+import { ViajePendiente } from '../models/in-viaje-pendiente';
 /*
   Generated class for the DatabaseProvider provider.
 
@@ -61,11 +62,16 @@ export class DatabaseProvider {
   getEmail() {
     return firebase.auth().currentUser.email;
   }
-  guardarNuevaRuta(data: Recorrido) {
-    const recorrido = { ...data, email: firebase.auth().currentUser, direccion: this.dataUserFb.direccion }
+  guardarNuevaRuta(data: any) {
+    const recorrido: ViajePendiente = {
+      ...data,
+      email: this.dataUserFb.email,
+      cliente: this.dataUserFb.user,
+      finalizado: false
+    }
     const refRutas = firebase.database().ref('viajes');
-    const refUsuario = firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase);
-    refUsuario.update({ recorrido: recorrido });
+    // const refUsuario = firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase);
+    // refUsuario.update({ recorrido: recorrido });
     refRutas.push(recorrido);
   }
 
@@ -76,10 +82,35 @@ export class DatabaseProvider {
     // refUsuario.update({ recorrido: recorrido });
     return refReservas.push(recorrido);
   }
-  getReservas(){
+  getReservas() {
     return firebase.database().ref('reservas');
     //.child(this.dataUserFb.id_firebase).child('reservas');
 
     // return firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase).child('reservas');
   }
+
+  guardarSinKey() {
+    var user = firebase.auth().currentUser;
+    var usersRef = firebase.database().ref("users");
+    if (user) {
+      usersRef.child(user.uid).set({
+      });
+    }
+  }
+
+  getAuto(key: string) {
+    const refAuto = firebase.database().ref('autos/' + key);
+    // refAuto.on()
+
+  }
+  getUsuarios() {
+    return firebase.database().ref('usuarios');
+  }
+  changeUserStatus(user: string, key: string, value) {
+    firebase.database().ref("usuarios/" + user).child(key).update({ activo: value });
+  }
+
+
+
+
 }
