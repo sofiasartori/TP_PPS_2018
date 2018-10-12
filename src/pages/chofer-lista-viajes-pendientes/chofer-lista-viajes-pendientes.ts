@@ -39,7 +39,12 @@ export class ChoferListaViajesPendientesPage {
     ref.on('value', snapshot => {
       this.pendientes.length = 0;
       snapshot.forEach(data => {
-        this.pendientes.push({ ...data.val(), key: data.key });
+        
+        firebase.storage().refFromURL('gs://remiseriacachito.appspot.com').child('fotos/clientes/' + data.val().email+'.jpeg').getDownloadURL().then(foto=>{
+          console.log(foto);
+          this.pendientes.push({ ...data.val(), key: data.key,foto:foto });
+          console.log(JSON.stringify({ ...data.val(), key: data.key,foto:foto }));
+        })
       });
     });
   }

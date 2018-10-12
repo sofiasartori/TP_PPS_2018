@@ -22,7 +22,9 @@ import { ConfigProvider } from '../../providers/config';
 })
 export class SigninPage {
 
-  mail = "chofer1@gmail.com";
+  // mail = "chofer1@gmail.com";
+  mail = "sartorisofiaines@gmail.com";
+
   password = "123456";
 
   constructor(private authService: AuthService,

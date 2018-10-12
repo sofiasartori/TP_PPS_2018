@@ -34,4 +34,12 @@ export class SupListaViajesPage {
         });
       });
   }
+
+  eliminar(data: any, slading) {
+    // this.database.changeUserStatus(user, key, false);
+    // firebase.database().ref('viajes/' + chofer.user).child(chofer.key).remove();
+    firebase.database().ref('reservas/').child(data.key).remove();
+    slading.close()
+
+  }
 }

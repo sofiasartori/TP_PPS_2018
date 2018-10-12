@@ -29,7 +29,9 @@ export class User {
         headerRadio: string,
         headerSelect: string,
         headerCheck: string,
-        headerComentario: string
+        headerComentario: string,
+        encuestaButton1: string,
+        encuestaButton2: string
     };
 
     constructor(usuario: UserFb) {
@@ -44,7 +46,9 @@ export class User {
             this.textos.headerRadio,
             this.textos.headerSelect,
             this.textos.headerCheck,
-            this.textos.headerComentario
+            this.textos.headerComentario,
+            this.textos.encuestaButton1,
+            this.textos.encuestaButton2
         );
     }
     guardarEncuesta(range, radio, select, check, comentario, options: OptionsUsuario): firebase.database.ThenableReference {
@@ -62,7 +66,9 @@ export class Cliente extends User {
         headerRadio: '¿Volveria a viajar con nosotros?',
         headerSelect: '¿Que le parecio el viaje?',
         headerCheck: '¿Llego en tiempo?',
-        headerComentario: 'Ingrese un comentario'
+        headerComentario: 'Ingrese un comentario',
+        encuestaButton1: 'Hacer encuesta del viaje',
+        encuestaButton2: 'Ver datos del chofer'
     }
     direccion = '';
     sideMenu = [
@@ -72,8 +78,8 @@ export class Cliente extends User {
         { title: 'Reservar auto', component: "ReservaClientePage" },
         { title: 'Mis reservas', component: "MisReservasClientePage" },
         { title: 'Encuesta', component: "EncuestaClienteQrPage" },
-        { title: 'Mis datos', component: "AccountPage" },
-        { title: "Mapa", component: "MapaRutaPage" }
+        { title: "Mapa", component: "MapaRutaPage" },
+        { title: "Leer QR", component: "AllLeerQrPage" }
     ];
     constructor(usuario: UserFb) {
         super(usuario);
@@ -106,15 +112,19 @@ export class Chofer extends User {
         headerRadio: 'Vidrios limpios',
         headerSelect: 'Estado de limpieza interna',
         headerCheck: '¿Tanque lleno?',
-        headerComentario: 'Ingrese un comentario'
+        headerComentario: 'Ingrese un comentario',
+        encuestaButton1: 'Empezar a trabajar',
+        encuestaButton2: ''
     }
     sideMenu = [
         // { title: 'Login', component: "SigninPage" },
         // { title: 'SignUp', component: "SignupPage" },
+        { title: 'Mis datos', component: "AccountPage" },
         { title: 'Inicio', component: "HomeClientePage" },
-        { title: 'Reservar auto', component: "ReservaClientePage" },
-        { title: 'Mis reservas', component: "MisReservasClientePage" },
-        { title: 'Encuesta', component: "EncuestaClienteQrPage" }
+        // { title: 'Reservar auto', component: "ReservaClientePage" },
+        // { title: 'Mis reservas', component: "MisReservasClientePage" },
+        { title: 'Encuesta', component: "EncuestaClienteQrPage" },
+        { title: "Leer QR", component: "AllLeerQrPage" }
     ];
     hasType = false;
     constructor(usuario: UserFb) {
@@ -136,7 +146,7 @@ export class Chofer extends User {
         return refEncuestaUsuario.push(data);
     }
     traerEncuestas(objetoAMedir: string): firebase.database.Reference {
-        return firebase.database().ref('encuestas/usuarios/' + objetoAMedir)
+        return firebase.database().ref('encuestas/clientes/' + objetoAMedir)
     }
 }
 
@@ -147,7 +157,10 @@ export class Supervisor extends User {
         headerRadio: 'A tiempo',
         headerSelect: 'Comportamiento',
         headerCheck: 'Cumplio las expectativas',
-        headerComentario: 'Ingrese un comentario'
+        headerComentario: 'Ingrese un comentario',
+        encuestaButton1: '',
+        encuestaButton2: ''
+
     }
     sideMenu = [
         // { title: 'Login', component: "SigninPage" },
@@ -158,9 +171,10 @@ export class Supervisor extends User {
         { title: 'SupListaChoferPage', component: "SupListaChoferPage" },
         { title: 'SupListaAutosPage', component: "SupListaAutosPage" },
         { title: 'SupEncuestaPage', component: "SupEncuestaPage" },
-        { title: 'Alta Auto', component: "AltaAutoPage" },
+        // { title: 'Alta Auto', component: "AltaAutoPage" },
         { title: "Reservas", component: "SupListaViajesPage" },
-        { title: "Viajes Pendientes", component: "SuListaViajesPendientesPage" }
+        { title: "Viajes Pendientes", component: "SuListaViajesPendientesPage" },
+        { title: "Leer QR", component: "AllLeerQrPage" }
 
     ];
     hasType = false;
@@ -210,17 +224,23 @@ export class FormularioEncuesta {
     headerCheck: string;
     headerComentario: string;
     hasType = true;
+    encuestaButton1?: string;
+    encuestaButton2?: string;
 
     constructor(headerRange: string,
         headerRadio: string,
         headerSelect: string,
         headerCheck: string,
-        headerComentario: string) {
+        headerComentario: string,
+        encuestaButton1: string,
+        encuestaButton2: string) {
         this.headerRange = headerRange;
         this.headerRadio = headerRadio;
         this.headerSelect = headerSelect;
         this.headerCheck = headerCheck;
         this.headerComentario = headerComentario;
+        this.encuestaButton1 = encuestaButton1;
+        this.encuestaButton2 = encuestaButton2;
     }
 }
 

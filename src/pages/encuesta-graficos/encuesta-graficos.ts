@@ -31,28 +31,135 @@ export class EncuestaGraficosPage {
   doughnutChartSelectArray = [];
   doughnutChartCheckArray = [];
   user: User;
+  key
   qrLeido: {
     dataQr: string,
     typeQr: string
   }
+  ENCUESTA_TEMPLATE = {
+    check: {
+      f: 0,
+      t: 0
+    },
+    radio: {
+      s: 0,
+      n: 0
+    },
+    range: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0
+    },
+    select: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0
+    }
+  }
 
+  dataEncuesta = {
+    check: {
+      f: 0,
+      t: 0
+    },
+    radio: {
+      s: 0,
+      n: 0
+    },
+    range: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0
+    },
+    select: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0
+    }
+  };
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
   }
 
   ionViewWillEnter() {
+
     this.user = this.navParams.get('user');
-    console.log(this.user);
+    this.dataEncuesta = this.ENCUESTA_TEMPLATE;
+    this.key = this.navParams.get('qr').key;
+    // { user: this.user, qr: { patente: this.patente, key: this.key } }
+    this.user.traerEncuestas(this.key).
+      ref.on('value', snapshot => {
+        snapshot.forEach(data => {
+          if (data.val().check) {
+            this.dataEncuesta.check.t++
+          } else {
+            this.dataEncuesta.check.f++
+          }
+          if (data.val().radio == 'Si') {
+            this.dataEncuesta.radio.s++;
+          } else {
+            this.dataEncuesta.radio.n++;
+          }
+          this.dataEncuesta.range[data.val().range]++;
+          this.dataEncuesta.select[data.val().select]++;
+        });
+        this.completeData()
+        this.initCharts();
+        console.log(this.dataEncuesta);
+      });
+
+
+
+    // console.log(this.user);
+  }
+
+  completeData() {
+    this.doughnutChartRadioArray = [
+      this.dataEncuesta.radio.s,
+      this.dataEncuesta.radio.n
+    ]
+    this.barChartRangeArray = [
+      this.dataEncuesta.range[1],
+      this.dataEncuesta.range[2],
+      this.dataEncuesta.range[3],
+      this.dataEncuesta.range[4],
+      this.dataEncuesta.range[5]
+    ];
+    this.doughnutChartSelectArray = [
+      this.dataEncuesta.select[1],
+      this.dataEncuesta.select[2],
+      this.dataEncuesta.select[3],
+      this.dataEncuesta.select[4],
+      this.dataEncuesta.select[5]
+    ];
+    this.doughnutChartCheckArray = [this.dataEncuesta.check.t, this.dataEncuesta.check.f];
+    console.log(this.doughnutChartCheckArray)
   }
   ionViewDidLoad() {
-    this.user.traerEncuestas('cliente')
+
+
+  }
+
+  initCharts() {
     this.barChartRange = new Chart(this.barCanvasRange.nativeElement, {
 
       type: 'bar',
       data: {
         labels: ["0", "1", "2", "3", "4", "5"],
         datasets: [{
-          label: '# of Votes',
+          label: 'Cantidad',
           // data: [12, 19, 3, 5, 2, 3],
           data: this.barChartRangeArray,
           backgroundColor: [
@@ -90,9 +197,9 @@ export class EncuestaGraficosPage {
 
       type: 'doughnut',
       data: {
-        labels: ["0", "1", "2", "3", "4", "5"],
+        labels: ["Si", "No"],
         datasets: [{
-          label: '# of Votes',
+          label: 'Cantidad',
           // data: [12, 19, 3, 5, 2, 3],
           data: this.doughnutChartRadioArray,
           backgroundColor: [
@@ -116,14 +223,13 @@ export class EncuestaGraficosPage {
 
     });
 
-
     this.doughnutChartSelect = new Chart(this.doughnutCanvasSelect.nativeElement, {
 
       type: 'doughnut',
       data: {
         labels: ["0", "1", "2", "3", "4", "5"],
         datasets: [{
-          label: '# of Votes',
+          label: 'Cantidad',
           // data: [12, 19, 3, 5, 2, 3],
           data: this.doughnutChartSelectArray,
           backgroundColor: [
@@ -152,9 +258,9 @@ export class EncuestaGraficosPage {
 
       type: 'doughnut',
       data: {
-        labels: ["No", "Si"],
+        labels: ["Si", "No"],
         datasets: [{
-          label: '# of Votes',
+          label: 'Cantidad',
           // data: [12, 19, 3, 5, 2, 3],
           data: this.doughnutChartCheckArray,
           backgroundColor: [
@@ -169,7 +275,6 @@ export class EncuestaGraficosPage {
       }
 
     });
-
   }
 
 }

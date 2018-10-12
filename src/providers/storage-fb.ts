@@ -35,8 +35,9 @@ export class StorageFbProvider {
       });
   }
 
-  getClientPhotoUrl() {
-    return firebase.storage().ref(context_fotos_fb + this.auth.getActiveUser().email+'.jpeg').getDownloadURL();
+  getClientPhotoUrl(mail: string) {
+
+    return firebase.storage().ref(context_fotos_fb + (mail || this.auth.getActiveUser().email) + '.jpeg').getDownloadURL();
   }
 
   uploadPhotoAuto(foto, patente, index): void {

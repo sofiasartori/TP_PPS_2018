@@ -30,7 +30,7 @@ export class AuthFbProvider {
   }
 
   logout() {
-    firebase.auth().signOut();
+    return firebase.auth().signOut();
   }
 
   getActiveUser() {

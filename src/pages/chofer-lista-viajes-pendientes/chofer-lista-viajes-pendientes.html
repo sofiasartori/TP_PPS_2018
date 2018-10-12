@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Viajes Pendientes</ion-title>
   </ion-navbar>
 
@@ -29,7 +32,8 @@
     <ion-item-sliding *ngFor="let pendiente of pendientes" #slading>
       <ion-item>
         <ion-avatar item-start>
-          <img [src]="(pendiente.chofer)?'assets/imgs/active.png':'assets/imgs/disabled.png'">
+          <!-- <img [src]="(pendiente.chofer)?'assets/imgs/active.png':'assets/imgs/disabled.png'"> -->
+          <img [src]="pendiente.foto">
         </ion-avatar>
         <h2>Cliente: {{pendiente.cliente}}</h2>
         <p>Email Cliente: {{pendiente.email}}</p>

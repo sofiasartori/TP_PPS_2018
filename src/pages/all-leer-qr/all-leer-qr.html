@@ -1,0 +1,24 @@
+<!--
+  Generated template for the AllLeerQrPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Leer QR</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <button ion-button block (click)="button1()" *ngIf="user.textos.encuestaButton1">{{user.textos.encuestaButton1}}</button>
+  <br>
+  <button ion-button block (click)="button2()" *ngIf="user.textos.encuestaButton2">{{user.textos.encuestaButton2}}</button>
+</ion-content>
