@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -15,7 +15,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomeSupervisorPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private stringsL:StringsL,public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {

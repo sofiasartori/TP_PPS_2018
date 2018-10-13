@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import firebase from 'firebase';
@@ -13,7 +13,7 @@ export class SupListaViajesPage {
 
   reservas: Array<ReservaViaje> = []
 
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL:StringsL,public navCtrl: NavController,
     public navParams: NavParams) {
   }
 

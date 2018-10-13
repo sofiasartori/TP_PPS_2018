@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViajePendiente } from '../../models/in-viaje-pendiente';
 import firebase from 'firebase';
@@ -22,7 +22,7 @@ export class ChoferListaViajesPendientesPage {
   selectedViaje = null;
   choferes = [];
   selectValue = '';
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL: StringsL, public navCtrl: NavController,
     public navParams: NavParams) {
   }
 
@@ -39,20 +39,32 @@ export class ChoferListaViajesPendientesPage {
     ref.on('value', snapshot => {
       this.pendientes.length = 0;
       snapshot.forEach(data => {
-        
-        firebase.storage().refFromURL('gs://remiseriacachito.appspot.com').child('fotos/clientes/' + data.val().email+'.jpeg').getDownloadURL().then(foto=>{
+
+        firebase.storage().refFromURL('gs://remiseriacachito.appspot.com').child('fotos/clientes/' + data.val().email + '.jpeg').getDownloadURL().then(foto => {
           console.log(foto);
-          this.pendientes.push({ ...data.val(), key: data.key,foto:foto });
-          console.log(JSON.stringify({ ...data.val(), key: data.key,foto:foto }));
+          this.pendientes.push({ ...data.val(), key: data.key, foto: foto });
+          console.log(JSON.stringify({ ...data.val(), key: data.key, foto: foto }));
         })
       });
     });
   }
 
+  finalizar(chofer: any, slading) {
+    this.mostrarForm = false;
+    // this.database.changeUserStatus(user, key, false);
+    // firebase.database().ref('viajes/' + chofer.user).child(chofer.key).remove();
+    firebase.database().ref('viajes/').child(chofer.key).update(
+      {
+        finalizado: true
+        // apellido: form.value.selectedSurname
+      });
+    slading.close()
+  }
+
   asignarpendiente(viaje: any, slading) {
     firebase.database().ref('viajes/').child(viaje.key).update(
       {
-        chofer:firebase.auth().currentUser.email.split("@")[0]
+        chofer: firebase.auth().currentUser.email.split("@")[0]
         // apellido: form.value.selectedSurname
       });
     this.selectedViaje = viaje;
@@ -89,8 +101,8 @@ export class ChoferListaViajesPendientesPage {
     // form.value.selectedName
     // form.value.selectedSurname
   }
-  verElMapa(chofer: any, slading){
-    this.navCtrl.push("MapaRutaPage",{start:chofer.origen,end:chofer.destino});
+  verElMapa(chofer: any, slading) {
+    this.navCtrl.push("MapaRutaPage", { start: chofer.origen, end: chofer.destino });
   }
 
 }

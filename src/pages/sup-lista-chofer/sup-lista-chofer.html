@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Lista Choferes</ion-title>
+    <ion-title>{{stringsL.LISTA_CHOFERES[stringsL.lenguaje]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,11 +18,11 @@
   <form #f="ngForm" (ngSubmit)="editarChofer(f)" *ngIf="mostrarForm">
     <ion-list>
       <ion-item>
-        <ion-label fixed>Nombre</ion-label>
+        <ion-label fixed>{{stringsL.Nombre[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="selectedChofer.nombre" name="selectedName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Apellido</ion-label>
+        <ion-label fixed>{{stringsL.Apellido[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="selectedChofer.apellido" name="selectedSurname" required></ion-input>
       </ion-item>
     </ion-list>

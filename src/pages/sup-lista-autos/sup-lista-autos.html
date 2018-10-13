@@ -17,11 +17,11 @@
   <form #f="ngForm" (ngSubmit)="editarAuto(f)" *ngIf="mostrarForm">
     <ion-list>
       <ion-item>
-        <ion-label fixed>Nombre</ion-label>
+        <ion-label fixed>{{stringsL.Nombre[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="selectedAuto.marca" name="marca"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Apellido</ion-label>
+        <ion-label fixed>{{stringsL.Apellido[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="selectedAuto.modelo" name="modelo" required></ion-input>
       </ion-item>
     </ion-list>

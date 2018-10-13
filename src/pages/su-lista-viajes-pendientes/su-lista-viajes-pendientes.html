@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Viajes Pendientes</ion-title>
+    <ion-title>{{stringsL.Viajes_pendientes[stringsL.lenguaje]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -31,11 +31,11 @@
         <ion-avatar item-start>
           <img [src]="(pendiente.chofer)?'assets/imgs/active.png':'assets/imgs/disabled.png'">
         </ion-avatar>
-        <h2>Cliente: {{pendiente.cliente}}</h2>
-        <p>Email Cliente: {{pendiente.email}}</p>
+        <h2>{{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.cliente}}</h2>
+        <p>{{stringsL.Email[stringsL.lenguaje]}} {{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.email}}</p>
         <p>Fecha: {{pendiente.hora}}</p>
-        <p>Origen: {{pendiente.origen}}</p>
-        <p>Destino: {{pendiente.destino}}</p>
+        <p>{{stringsL.Origen[stringsL.lenguaje]}}: {{pendiente.origen}}</p>
+        <p>{{stringsL.Destino[stringsL.lenguaje]}}: {{pendiente.destino}}</p>
         <p>Chofer: {{pendiente.chofer}}</p>
       </ion-item>
       <ion-item-options>
@@ -49,7 +49,7 @@
         </button>
         <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="cancelarpendiente(pendiente,slading)">
           <ion-icon name="text"></ion-icon>
-          Cancelar asignacion
+          {{stringsL.Cancelar[stringsL.lenguaje]}} asignacion
         </button>
       </ion-item-options>
     </ion-item-sliding>

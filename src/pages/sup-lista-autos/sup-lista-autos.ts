@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database';
 import firebase from 'firebase';
@@ -21,7 +21,7 @@ export class SupListaAutosPage {
   mostrarForm = false;
   selectedAuto: any = {}
   slading;
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL:StringsL,public navCtrl: NavController,
     public navParams: NavParams,
     public database: DatabaseProvider) {
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { NavController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Utils } from '../../lib/Utils';
@@ -13,7 +13,7 @@ export class HomePage {
   destino = 'Gorriti 11 Lomas de zamora';
   hora = '10-15';
 
-  constructor(
+  constructor(private stringsL:StringsL,
     public navCtrl: NavController,
     private datePicker: DatePicker,
     private database: DatabaseProvider
@@ -38,6 +38,6 @@ export class HomePage {
   generarPedido(form: NgForm) {
     const hora = this.hora;
     const destino = form.value.destino;
-    this.database.guardarNuevaRuta({ hora: hora, destino: destino })
+    this.database.guardarNuevaRuta({ hora: hora, destino: destino },()=>{})
   }
 }

@@ -4,7 +4,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Agendar Viaje</ion-title>
+    <ion-title>{{stringsL.Agendar_viaje[stringsL.lenguaje]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,19 +14,19 @@
   <form #f="ngForm" (ngSubmit)="generarReserva(f)">
     <ion-list>
       <ion-item>
-        <ion-label fixed>Desde</ion-label>
+        <ion-label fixed>{{stringsL.Desde[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="origen" name="origen" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Hasta</ion-label>
+        <ion-label fixed>{{stringsL.Hasta[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="destino" name="destino" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Hora Llegada</ion-label>
+        <ion-label fixed>{{stringsL.Hora_llegada[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="dia_hora" name="dia_hora" required (click)="getTiempo()"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!f.valid">Reservar Auto</button>
+    <button ion-button block type="submit" [disabled]="!f.valid">{{stringsL.Reservar_auto[stringsL.lenguaje]}}</button>
   </form>
   <!-- <button ion-button (click)="getTiempo()">Eligir fecha</button> -->
 </ion-content>

@@ -19,6 +19,7 @@ import { AuthFbProvider } from '../providers/auth-fb/auth-fb';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { ConfigProvider } from '../providers/config';
+import { StringsL } from '../providers/Strings';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ConfigProvider } from '../providers/config';
     StorageFbProvider,
     BarcodeScanner,
     AuthFbProvider,
+    StringsL,
     LaunchNavigator,
     Geolocation,
     ConfigProvider

@@ -21,11 +21,11 @@
         <ion-input type="password" [(ngModel)]="password" name="password" required [minlength]="6"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Nombre</ion-label>
+        <ion-label fixed>{{stringsL.Nombre[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="nombre" name="nombre" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Apellido</ion-label>
+        <ion-label fixed>{{stringsL.Apellido[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="apellido" name="apellido" required></ion-input>
       </ion-item>
       <ion-item [hidden]="true">
@@ -33,7 +33,7 @@
         <ion-input type="foto" [(ngModel)]="foto" name="foto"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!f.valid || !foto">Crear Chofer</button>
+    <button ion-button block type="submit" [disabled]="!f.valid || !foto">{{stringsL.Crear_Chofer[stringsL.lenguaje]}}</button>
   </form>
   <ion-grid style="height: 150px;">
     <ion-row>
@@ -42,6 +42,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <button ion-button block (click)="takePhoto()" required>Sacar Foto</button>
+  <button ion-button block (click)="takePhoto()" required>{{stringsL.Sacar_foto[stringsL.lenguaje]}}</button>
 
 </ion-content>

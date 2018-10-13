@@ -6,7 +6,7 @@
           <ion-icon name="menu"></ion-icon>
         </button>
       </ion-buttons> -->
-      <ion-title>Bienvenido</ion-title>
+      <ion-title>{{stringsL.Bienvenido[stringsL.lenguaje]}}</ion-title>
     </ion-navbar>
   
   </ion-header>
@@ -17,18 +17,18 @@
     <form #f="ngForm" (ngSubmit)="onSignin(f)">
       <ion-list>
         <ion-item>
-          <ion-label fixed>Usuario</ion-label>
+          <ion-label fixed>{{stringsL.Usuario[stringsL.lenguaje]}}</ion-label>
           <ion-input type="email" [(ngModel)]="mail" name="mail" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>Contraseña</ion-label>
+          <ion-label fixed>{{stringsL.Contrasenia[stringsL.lenguaje]}}</ion-label>
           <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button block type="submit" [disabled]="!f.valid">Iniciar Sesion</button>
+      <button ion-button block type="submit" [disabled]="!f.valid">{{stringsL.Iniciar_Sesion[stringsL.lenguaje]}}</button>
     </form>
     
-    <a ion-button (click)="goToSignUp()" outline>Soy Nuevo</a>
+    <a ion-button (click)="goToSignUp()" outline>{{stringsL.Soy_Nuevo[stringsL.lenguaje]}}</a>
   
   </ion-content>
   

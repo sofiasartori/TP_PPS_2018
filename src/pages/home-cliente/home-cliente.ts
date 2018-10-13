@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Utils } from '../../lib/Utils';
@@ -22,7 +22,9 @@ export class HomeClientePage {
   destino = 'Gorriti 11 Lomas de zamora';
   hora = '10-15';
   tieneViajes = false;
-  constructor(
+  viaje;
+  key;
+  constructor(private stringsL:StringsL,
     public navCtrl: NavController,
     private datePicker: DatePicker,
     private database: DatabaseProvider
@@ -32,6 +34,16 @@ export class HomeClientePage {
   ionViewWillEnter() {
 
     this.tieneViajes = !!this.database.dataUserFb.recorrido
+    this.database.getViaje((viaje) => {
+      if (viaje) {
+        this.viaje = viaje.val();
+        this.key = viaje.key;
+      }
+    })
+  }
+
+  cancelar() {
+    this.database.removeViaje(this.key, () => { this.viaje = null; });
   }
   getHora() {
     this.datePicker.show({
@@ -47,10 +59,19 @@ export class HomeClientePage {
       err => console.log('Error occurred while getting date: ', err)
     );
   }
-
+  irEncuesta(){
+    this.navCtrl.push("EncuestaClienteQrPage");
+  }
   generarPedido(form: NgForm) {
     const hora = this.hora;
     const destino = form.value.destino;
-    this.database.guardarNuevaRuta({ hora: hora, destino: destino, origen: form.value.origen })
+    this.database.guardarNuevaRuta({ hora: hora, destino: destino, origen: form.value.origen }, () => {
+      this.verElMapa(form.value.origen, form.value.destino)
+    })
+
+  }
+
+  verElMapa(origen, destino) {
+    this.navCtrl.push("MapaRutaPage", { start: origen, end: destino });
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { NgForm } from "@angular/forms";
@@ -22,7 +22,7 @@ export class EncuestaClienteQrPage {
   showForm = false;
   user: User;
   auto: { patente: string, key: string };
-  constructor(
+  constructor(private stringsL:StringsL,
     public navCtrl: NavController,
     public navParams: NavParams,
     private barcodeScanner: BarcodeScanner,
@@ -35,7 +35,7 @@ export class EncuestaClienteQrPage {
   }
   ionViewDidEnter() {
     // this.leerQR();
-    this.user = FactoryUser.crearUsuario(this.database.dataUserFb);
+    this.user = FactoryUser.crearUsuario(this.database.dataUserFb,this.stringsL);
     this.auto = this.navParams.get('auto');
     console.log('user', this.user);
   }
@@ -54,7 +54,7 @@ export class EncuestaClienteQrPage {
     if (!key) {
       alert('Error al enviar la encuesta');
     } else {
-      alert('Encuesta enviada correctamente');
+      alert(this.stringsL.Encuesta[this.stringsL.lenguaje] +' enviada correctamente');
       this.showForm = false;
       this.limpiarPagina();
     }

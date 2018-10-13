@@ -14,6 +14,7 @@ import { Subject } from 'rxjs/Subject';
 import { tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
 import { ConfigProvider } from '../providers/config';
+import { StringsL } from '../providers/Strings';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,16 +27,11 @@ export class MyApp {
   // pages: Array<{ title: string, component: any }>;
 
   sideMenuCliente = [
-    { title: 'Login', component: "SigninPage" },
-    { title: 'SignUp', component: "SignupPage" },
-    { title: 'Inicio', component: "HomeClientePage" },
-    { title: 'Reservar auto', component: "ReservaClientePage" },
-    { title: 'Mis reservas', component: "MisReservasClientePage" },
-    { title: 'Encuesta', component: "EncuestaClienteQrPage" }
   ];
 
   showSplash = false;
-  constructor(public platform: Platform,
+  constructor(private stringsL:StringsL,
+    public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public fcm: FcmProvider,
@@ -55,6 +51,14 @@ export class MyApp {
     }
     // used for an example of ngFor and navigation
     // this.pages = this.configP.sideMenu;
+    this.sideMenuCliente = [
+      { title: 'Login', component: "SigninPage" },
+      { title: 'SignUp', component: "SignupPage" },
+      { title: this.stringsL.Inicio[this.stringsL.lenguaje], component: "HomeClientePage" },
+      { title: this.stringsL.Reservar_auto[this.stringsL.lenguaje], component: "ReservaClientePage" },
+      { title: this.stringsL.Mis_reservas[this.stringsL.lenguaje], component: "MisReservasClientePage" },
+      { title: this.stringsL.Encuesta[this.stringsL.lenguaje], component: "EncuestaClienteQrPage" }
+    ];
 
   }
 

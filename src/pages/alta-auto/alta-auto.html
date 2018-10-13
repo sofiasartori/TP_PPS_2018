@@ -13,23 +13,23 @@
   <form #AA="ngForm" (ngSubmit)="onSignup(AA)">
     <ion-list>
       <ion-item>
-        <ion-label fixed>Marca</ion-label>
+        <ion-label fixed>{{stringsL.Marca[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="marca" name="marca" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Modelo</ion-label>
+        <ion-label fixed>{{stringsL.Modelo[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="modelo" name="modelo" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Año</ion-label>
+        <ion-label fixed>{{stringsL.Anio[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="anio" name="anio" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Patente</ion-label>
+        <ion-label fixed>{{stringsL.Patente[stringsL.lenguaje]}}</ion-label>
         <ion-input type="text" [(ngModel)]="patente" name="patente" required></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!AA.valid  || !(fotos.length>2)">Guardar Auto</button>
+    <button ion-button block type="submit" [disabled]="!AA.valid  || !(fotos.length>2)">{{stringsL.Guardar_auto[stringsL.lenguaje]}}</button>
   </form>
 
   <ion-grid style="height: 150px;">
@@ -45,6 +45,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <button ion-button block (click)="takePhoto()" required>Sacar Foto</button>
+  <button ion-button block (click)="takePhoto()" required>{{stringsL.Sacar_foto[stringsL.lenguaje]}}</button>
 
 </ion-content>

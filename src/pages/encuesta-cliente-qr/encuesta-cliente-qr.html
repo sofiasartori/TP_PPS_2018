@@ -4,7 +4,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Encuesta</ion-title>
+    <ion-title>{{stringsL.Encuesta[stringsL.lenguaje]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -47,7 +47,7 @@
           {{user?.formulario?.headerSelect}}
         </ion-list-header>
         <ion-item>
-          <ion-label>Valorización</ion-label>
+          <ion-label>{{stringsL.Valorizacion[stringsL.lenguaje]}}</ion-label>
           <ion-select [(ngModel)]="selectValue" name="selectValue" required>
             <ion-option value="0">Malo</ion-option>
             <ion-option value="1">Regular</ion-option>
@@ -64,7 +64,7 @@
           {{user?.formulario?.headerComentario}}
         </ion-list-header>
         <ion-item>
-          <ion-textarea placeholder="Comentario" [(ngModel)]="comentario" name="comentario" required></ion-textarea>
+          <ion-textarea placeholder="{{stringsL.Comentario[stringsL.lenguaje]}}" [(ngModel)]="comentario" name="comentario" required></ion-textarea>
         </ion-item>
       </ion-list>
       <button ion-button block type="submit" [disabled]="!f.valid">Enviar</button>

@@ -4,7 +4,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Inicio</ion-title>
+    <ion-title>{{stringsL.Inicio[stringsL.lenguaje]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,8 +14,8 @@
 
   <button ion-button block padding (click)="irAEncuesta()" required>Ver o Completar encuesta</button>
 
-  <button ion-button block padding (click)="irAltaChoferes()" required>Agregar Chofer</button>
+  <button ion-button block padding (click)="irAltaChoferes()" required>{{stringsL.Agregar_chofer[stringsL.lenguaje]}}</button>
 
-  <button ion-button block padding (click)="irAltaAuto()" required>Agregar Auto</button>
+  <button ion-button block padding (click)="irAltaAuto()" required>{{stringsL.Agregar_auto[stringsL.lenguaje]}}</button>
 
 </ion-content>

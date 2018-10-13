@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database';
 import { Recorrido } from '../../models/user-fb';
@@ -18,7 +18,7 @@ import { Recorrido } from '../../models/user-fb';
 export class MisReservasClientePage {
   reservas: Array<Recorrido> = [];
 
-  constructor(
+  constructor(private stringsL:StringsL,
     public navCtrl: NavController,
     public navParams: NavParams,
     private database: DatabaseProvider) {
@@ -31,11 +31,13 @@ export class MisReservasClientePage {
     this.reservas.length = 0;;
     this.getReservas();
   }
-  getReservas(){
+  getReservas() {
     this.database.getReservas().on('value', snapshot => {
       snapshot.forEach((data) => {
-        this.reservas.push({ ...data.val(), key: data.key });
+        if (data.val().email == this.database.dataUserFb.email)
+          this.reservas.push({ ...data.val(), key: data.key });
       });
+      console.log(this.reservas);
     });
   }
 }

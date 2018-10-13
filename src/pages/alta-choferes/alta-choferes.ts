@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { NgForm } from "@angular/forms";
 import { LoadingController, AlertController, NavController, IonicPage } from "ionic-angular";
 
@@ -27,7 +27,7 @@ export class AltaChoferesPage {
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
   }
-  constructor(private authService: AuthService,
+  constructor(private stringsL:StringsL,private authService: AuthService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private database: DatabaseProvider,

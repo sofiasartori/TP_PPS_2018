@@ -23,7 +23,7 @@
           <ion-input type="password" [(ngModel)]="password" name="password" required [minlength]="6"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>Dirección</ion-label>
+          <ion-label fixed>{{stringsL.Direccion[stringsL.lenguaje]}}</ion-label>
           <ion-input type="direccion" [(ngModel)]="direccion" name="direccion" required [minlength]="6"></ion-input>
         </ion-item>
         <ion-item [hidden]="true">
@@ -31,10 +31,10 @@
           <ion-input type="foto" [(ngModel)]="foto" name="foto" ></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button block type="submit" [disabled]="!f.valid">Crear Usuario</button>
+      <button ion-button block type="submit" [disabled]="!f.valid">Crear {{stringsL.Usuario[stringsL.lenguaje]}}</button>
     </form>
   
-    <button block ion-button (click)="takePhoto()" required>Sacar Foto</button>
+    <button block ion-button (click)="takePhoto()" required>{{stringsL.Sacar_foto[stringsL.lenguaje]}}</button>
     <ion-grid style="height: 150px;">
         <ion-row>
           <ion-col col-4 offset-4 class="col-foto" *ngIf="foto">

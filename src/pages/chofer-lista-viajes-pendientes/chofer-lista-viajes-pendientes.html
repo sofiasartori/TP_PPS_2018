@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Viajes Pendientes</ion-title>
+    <ion-title>{{stringsL.Viajes_pendientes[stringsL.lenguaje]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -35,25 +35,33 @@
           <!-- <img [src]="(pendiente.chofer)?'assets/imgs/active.png':'assets/imgs/disabled.png'"> -->
           <img [src]="pendiente.foto">
         </ion-avatar>
-        <h2>Cliente: {{pendiente.cliente}}</h2>
-        <p>Email Cliente: {{pendiente.email}}</p>
+        <h2>{{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.cliente}}</h2>
+        <p>{{stringsL.Email[stringsL.lenguaje]}} {{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.email}}</p>
         <p>Fecha: {{pendiente.hora}}</p>
-        <p>Origen: {{pendiente.origen}}</p>
-        <p>Destino: {{pendiente.destino}}</p>
+        <p>{{stringsL.Origen[stringsL.lenguaje]}}: {{pendiente.origen}}</p>
+        <p>{{stringsL.Destino[stringsL.lenguaje]}}: {{pendiente.destino}}</p>
         <p>Chofer: {{pendiente.chofer}}</p>
       </ion-item>
       <ion-item-options>
         <button ion-button color="secondary" icon-start (click)="verElMapa(pendiente,slading)">
           <ion-icon name="map"></ion-icon>
-          Mapa
+          {{stringsL.Mapa[stringsL.lenguaje]}}
         </button>
+
         <button ion-button color="light" *ngIf="!pendiente.chofer" icon-start (click)="asignarpendiente(pendiente,slading)">
           <ion-icon name="ios-more"></ion-icon>
           Tomar Viaje
         </button>
+        
+        <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="finalizar(pendiente,slading)">
+            <ion-icon name="text"></ion-icon>
+            {{stringsL.Terminar[stringsL.lenguaje]}}
+          </button>
+
+
         <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="cancelarpendiente(pendiente,slading)">
           <ion-icon name="text"></ion-icon>
-          Cancelar
+          {{stringsL.Cancelar[stringsL.lenguaje]}}
         </button>
       </ion-item-options>
     </ion-item-sliding>

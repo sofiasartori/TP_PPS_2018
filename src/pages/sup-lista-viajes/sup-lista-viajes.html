@@ -18,11 +18,11 @@
 
     <ion-item *ngFor="let reserva of reservas">
 
-      <h2>Cliente: {{reserva.cliente}}</h2>
-      <p>Email: {{reserva.email}}</p>
+      <h2>{{stringsL.{{stringsL.Cliente[stringsL.lenguaje]}}[stringsL.lenguaje]}}: {{reserva.cliente}}</h2>
+      <p>{{stringsL.Email[stringsL.lenguaje]}}: {{reserva.email}}</p>
       <p>Fecha: {{reserva.hora}}</p>
-      <p>Origen: {{reserva.origen}}</p>
-      <p>Destino: {{reserva.destino}}</p>
+      <p>{{stringsL.Origen[stringsL.lenguaje]}}: {{reserva.origen}}</p>
+      <p>{{stringsL.Destino[stringsL.lenguaje]}}: {{reserva.destino}}</p>
     </ion-item>
 
   </ion-list> -->
@@ -30,11 +30,11 @@
   <ion-list>
     <ion-item-sliding *ngFor="let reserva of reservas" #slading>
       <ion-item>
-        <h2>Cliente: {{reserva.cliente}}</h2>
-        <p>Email: {{reserva.email}}</p>
+        <h2>{{stringsL.Cliente[stringsL.lenguaje]}}: {{reserva.cliente}}</h2>
+        <p>{{stringsL.Email[stringsL.lenguaje]}}: {{reserva.email}}</p>
         <p>Fecha: {{reserva.hora}}</p>
-        <p>Origen: {{reserva.origen}}</p>
-        <p>Destino: {{reserva.destino}}</p>
+        <p>{{stringsL.Origen[stringsL.lenguaje]}}: {{reserva.origen}}</p>
+        <p>{{stringsL.Destino[stringsL.lenguaje]}}: {{reserva.destino}}</p>
       </ion-item>
       <ion-item-options>
         <button ion-button color="danger" icon-start (click)="eliminar(reserva,slading)">

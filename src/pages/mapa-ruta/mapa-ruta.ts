@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 /**
@@ -22,7 +22,7 @@ export class MapaRutaPage {
   directionsService: any;
   directionsDisplay: any;
 
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL:StringsL,public navCtrl: NavController,
     public platform: Platform,
     public navParams: NavParams,
     private geolocation: Geolocation) {

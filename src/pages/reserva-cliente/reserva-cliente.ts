@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { NgForm } from "@angular/forms";
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database';
@@ -20,7 +20,7 @@ export class ReservaClientePage {
   dia_hora = new Date().toISOString();
   destino = 'Gorriti 10';
   origen = 'Somellera 409';
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL:StringsL,public navCtrl: NavController,
     public navParams: NavParams,
     private loadingCtrl: LoadingController,
     private database: DatabaseProvider,

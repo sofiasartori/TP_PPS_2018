@@ -3,40 +3,46 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Mis pedidos</ion-title>
+    <ion-title>{{stringsL.Mis_pedidos[stringsL.lenguaje]}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="tieneViajes">
-    <h4>Origen</h4>
-    <label>{{database?.dataUserFb?.recorrido?.direccion}}</label>
-    <h4>Destino</h4>
-    <label>{{database?.dataUserFb?.recorrido?.destino}}</label>
-    <h4>Hora</h4>
-    <label>{{database?.dataUserFb?.recorrido?.hora}}</label>
+  <div *ngIf="viaje">
+    <h4>{{stringsL.Origen[stringsL.lenguaje]}}</h4>
+    <label>{{viaje.origen}}</label>
+    <h4>{{stringsL.Destino[stringsL.lenguaje]}}</h4>
+    <label>{{viaje.destino}}</label>
+    <h4>{{stringsL.Hora[stringsL.lenguaje]}}</h4>
+    <label>{{viaje.hora}}</label>
     <h4>Chofer</h4>
-    <label>{{database?.dataUserFb?.recorrido?.chofer}}</label>
+    <label>{{(viaje.chofer)?viaje.chofer:'Sin asignar'}}</label>
+    <h4>{{stringsL.Estado[stringsL.lenguaje]}}</h4>
+    <label>{{(viaje.finalizado)?'Terminado':'No finalizo'}}</label>
+
+    <button ion-button (click)="cancelar()" full>{{stringsL.Cancelar[stringsL.lenguaje]}}</button>
+
+    <button ion-button (click)="irEncuesta()" full *ngIf="viaje.finalizado">{{stringsL.Encuesta[stringsL.lenguaje]}}  </button>
 
   </div>
 
-  <div *ngIf="!tieneViajes">
+  <div *ngIf="!viaje">
     <form #f="ngForm" (ngSubmit)="generarPedido(f)">
       <ion-list>
         <ion-item>
-          <ion-label fixed>Origen</ion-label>
+          <ion-label fixed>{{stringsL.Origen[stringsL.lenguaje]}}</ion-label>
           <ion-input type="text" [(ngModel)]="origen" name="origen" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>Destino</ion-label>
+          <ion-label fixed>{{stringsL.Destino[stringsL.lenguaje]}}</ion-label>
           <ion-input type="text" [(ngModel)]="destino" name="destino" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>Hora</ion-label>
+          <ion-label fixed>{{stringsL.Hora[stringsL.lenguaje]}}</ion-label>
           <ion-input type="text" [(ngModel)]="hora" name="hora" required disabled></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button block type="submit" [disabled]="!f.valid">Pedir Auto</button>
+      <button ion-button block type="submit" [disabled]="!f.valid">{{stringsL.Pedir_Auto[stringsL.lenguaje]}}</button>
     </form>
     <button ion-button (click)="getHora()">Eligir hora</button>
 

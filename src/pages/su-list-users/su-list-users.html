@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Usuarios</ion-title>
   </ion-navbar>
 
@@ -17,7 +20,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let user of users" #slading>
       <ion-item>
-        <ion-avatar item-start >
+        <ion-avatar item-start>
           <img [src]="(user.activo)?'assets/imgs/active.png':'assets/imgs/disabled.png'">
         </ion-avatar>
         <h2>{{user.user}}</h2>
@@ -26,11 +29,11 @@
       <ion-item-options>
         <button ion-button color="light" icon-start (click)="habilitar(user.user,user.key,slading)">
           <ion-icon name="ios-more"></ion-icon>
-          Habilitar
+          {{stringsL.Habilitar[stringsL.lenguaje]}}
         </button>
         <button ion-button color="primary" icon-start (click)="block(user.user,user.key,slading)">
           <ion-icon name="text"></ion-icon>
-          Deshabilitar
+          {{stringsL.Deshabilitar[stringsL.lenguaje]}}
         </button>
       </ion-item-options>
     </ion-item-sliding>

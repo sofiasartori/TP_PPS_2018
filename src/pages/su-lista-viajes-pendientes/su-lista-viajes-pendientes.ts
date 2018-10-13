@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViajePendiente } from '../../models/in-viaje-pendiente';
 import firebase from 'firebase';
@@ -21,7 +21,7 @@ export class SuListaViajesPendientesPage {
   selectedViaje = null;
   choferes=[];
   selectValue = '';
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL:StringsL,public navCtrl: NavController,
     public navParams: NavParams) {
   }
 

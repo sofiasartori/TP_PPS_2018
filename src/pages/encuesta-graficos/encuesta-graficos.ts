@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { User } from '../../utils/FactoryUser';
+import { StringsL } from '../../providers/Strings';
 
 /**
  * Generated class for the EncuestaGraficosPage page.
@@ -89,7 +90,7 @@ export class EncuestaGraficosPage {
       6: 0
     }
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private stringsL:StringsL,public navCtrl: NavController, public navParams: NavParams) {
 
   }
 

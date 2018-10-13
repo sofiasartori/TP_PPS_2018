@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database';
 import { NgForm } from '../../../node_modules/@angular/forms';
@@ -19,7 +19,7 @@ export class SupListaChoferPage {
   choferes: Array<{ activo: boolean, user: string, rol: string }> = [];
   mostrarForm = false;
   selectedChofer: any = {}
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL:StringsL,public navCtrl: NavController,
     public navParams: NavParams,
     public database: DatabaseProvider) {
   }

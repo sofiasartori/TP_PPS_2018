@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { User, FactoryUser } from '../../utils/FactoryUser';
 import { UserFb } from '../../models/user-fb';
+import { StringsL } from '../Strings';
 
 
 @Injectable()
@@ -9,7 +10,7 @@ export class AuthFbProvider {
 
   user: User
 
-  constructor() {
+  constructor(private stringsL:StringsL) {
     console.log('Hello AuthFbProvider Provider');
   }
 
@@ -38,6 +39,6 @@ export class AuthFbProvider {
   }
 
   setUser(user: UserFb) {
-    this.user = FactoryUser.crearUsuario(user);
+    this.user = FactoryUser.crearUsuario(user,this.stringsL);
   }
 }

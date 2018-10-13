@@ -11,6 +11,7 @@ import { AuthFbProvider } from '../../providers/auth-fb/auth-fb';
 import { FactoryUser } from '../../utils/FactoryUser';
 import { UserFb } from '../../models/user-fb';
 import { ConfigProvider } from '../../providers/config';
+import { StringsL } from '../../providers/Strings';
 // import { SignupPage } from '../signup/signup';
 
 
@@ -27,18 +28,19 @@ export class SigninPage {
 
   password = "123456";
 
-  constructor(private authService: AuthService,
+  constructor(private stringsL:StringsL,private authService: AuthService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public navCtrl: NavController,
     private database: DatabaseProvider,
     public auth: AuthFbProvider,
     public config: ConfigProvider) {
+      console.log(this.stringsL.Agendar_viaje)
   }
 
   onSignin(form: NgForm) {
     const loading = this.loadingCtrl.create({
-      content: 'Iniciando sesión...'
+      content: this.stringsL.Iniciando_sesion[this.stringsL.lenguaje] +'...'
     });
     loading.present();
     this.auth.signin(form.value.mail, form.value.password)
@@ -61,7 +63,7 @@ export class SigninPage {
             }
             switch (this.auth.user.rol) {
               case 'cliente':
-                this.navCtrl.setRoot("EncuestaClienteQrPage");
+                this.navCtrl.setRoot("HomeClientePage");
                 break;
               case 'chofer':
                 this.navCtrl.setRoot("ChoferListaViajesPendientesPage");

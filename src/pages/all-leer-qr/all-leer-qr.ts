@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database';
 import { ROL_CLIENTE, ROL_CHOFER, ROL_SU, ROL_SUPERVISOR } from '../../properties';
@@ -21,11 +21,11 @@ import firebase from 'firebase';
 export class AllLeerQrPage {
   type = '';
   user: User;
-  constructor(public navCtrl: NavController,
+  constructor(private stringsL:StringsL,public navCtrl: NavController,
     public navParams: NavParams,
     private database: DatabaseProvider,
     private barcode: BarcodeScanner) {
-    this.user = FactoryUser.crearUsuario(this.database.dataUserFb)
+    this.user = FactoryUser.crearUsuario(this.database.dataUserFb,this.stringsL);
     this.user.textos.encuestaButton1
   }
 
