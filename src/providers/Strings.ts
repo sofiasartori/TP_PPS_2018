@@ -447,6 +447,14 @@ export class StringsL {
         Ruso: 'Снять фотографию'
     };
 
+    Ver_completar_encuesta = {
+        espanol: 'Ver o completar encuesta',
+        Ingles: 'View or complete poll',
+        Aleman: 'Umfrage ansehen oder vervollständigen',
+        Frances: 'Voir ou compléter le sondage',
+        Portugues: 'Visualizar ou concluir a pesquisa',
+        Ruso: 'Просмотр или полное обследование'
+    };
 
     Marca = {
         espanol: 'Marca',

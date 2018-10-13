@@ -127,42 +127,42 @@ export class AccountPage {
       buttons: [
         {
           text: 'Español',
-          icon: !this.platform.is('ios') ? 'trash' : null,
+          // icon: !this.platform.is('ios') ? 'trash' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[0];
           }
         },
         {
-          text: 'Ingles',
-          icon: !this.platform.is('ios') ? 'share' : null,
+          text: 'English',
+          // icon: !this.platform.is('ios') ? 'share' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[1];
           }
         },
         {
-          text: 'Aleman',
-          icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
+          text: 'Deutsch',
+          // icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[2];
           }
         },
         {
-          text: 'Frances',
-          icon: !this.platform.is('ios') ? 'heart-outline' : null,
+          text: 'Français',
+          // icon: !this.platform.is('ios') ? 'heart-outline' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[3];
           }
         },
         {
-          text: 'Portugues',
-          icon: !this.platform.is('ios') ? 'close' : null,
+          text: 'Português',
+          // icon: !this.platform.is('ios') ? 'close' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[4];
           }
         },
         {
-          text: 'Ruso',
-          icon: !this.platform.is('ios') ? 'close' : null,
+          text: 'русский',
+          // icon: !this.platform.is('ios') ? 'close' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[5];
           }

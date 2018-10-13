@@ -73,8 +73,8 @@ export class Cliente extends User {
             headerSelect: this.stringsL.qparecio_el_viaje[this.stringsL.lenguaje],
             headerCheck: '¿Llego en tiempo?',
             headerComentario: this.stringsL.Ingrese_un_comentario[this.stringsL.lenguaje],
-            encuestaButton1: 'Hacer encuesta del viaje',
-            encuestaButton2: 'Ver datos del chofer'
+            encuestaButton1: '',//'Hacer encuesta del viaje',
+            encuestaButton2: this.stringsL.Ver_datos_del_chofer[this.stringsL.lenguaje]
         }
         this.direccion = '';
         this.sideMenu = [
@@ -85,7 +85,7 @@ export class Cliente extends User {
             { title: this.stringsL.Mis_reservas[this.stringsL.lenguaje], component: "MisReservasClientePage" },
             // { title: this.stringsL.Encuesta[this.stringsL.lenguaje], component: "EncuestaClienteQrPage" },
             { title: this.stringsL.Mapa[this.stringsL.lenguaje], component: "MapaRutaPage" },
-            { title: "Ver datos del chofer", component: "AllLeerQrPage" }
+            { title: this.stringsL.Ver_datos_del_chofer[this.stringsL.lenguaje], component: "AllLeerQrPage" }
         ];
         this.formulario = this.crearFormulario();
         this.sideMenu = this.sideMenu;
@@ -174,15 +174,15 @@ export class Supervisor extends User {
         this.sideMenu = [
             // { title: 'Login', component: "SigninPage" },
             // { title: 'SignUp', component: "SignupPage" },
-            { title: 'Inicio', component: "HomeSupervisorPage" },
+            { title: this.stringsL.Inicio[stringsL.lenguaje], component: "HomeSupervisorPage" },
             { title: this.stringsL.Mis_datos[this.stringsL.lenguaje], component: "AccountPage" },
-            { title: 'Alta Chofer', component: "AltaChoferesPage" },
-            { title: 'Alta Auto', component: "AltaAutoPage" },
-            { title: 'Lista Choferes', component: "SupListaChoferPage" },
+            { title: this.stringsL.Agregar_chofer[stringsL.lenguaje], component: "AltaChoferesPage" },
+            { title: this.stringsL.Agregar_auto[stringsL.lenguaje], component: "AltaAutoPage" },
+            { title: this.stringsL.LISTA_CHOFERES[this.stringsL.lenguaje], component: "SupListaChoferPage" },
             { title: this.stringsL.Lista_autos[this.stringsL.lenguaje], component: "SupListaAutosPage" },
             // { title: 'SupEncuestaPage', component: "SupEncuestaPage" },
             // { title: 'Alta Auto', component: "AltaAutoPage" },
-            { title: "Reservas", component: "SupListaViajesPage" },
+            { title: this.stringsL.Reservas[this.stringsL.lenguaje], component: "SupListaViajesPage" },
             { title: this.stringsL.Viajes_pendientes[this.stringsL.lenguaje], component: "SuListaViajesPendientesPage" },
             // { title: "Leer QR", component: "AllLeerQrPage" }
 
@@ -218,7 +218,7 @@ export class SuperUser extends User {
             // { title: 'Login', component: "SigninPage" },
             // { title: 'SignUp', component: "SignupPage" },
             { title: this.stringsL.Mis_datos[this.stringsL.lenguaje], component: "AccountPage" },
-            { title: 'Lista de usuarios', component: "SuListUsersPage" }
+            { title: this.stringsL.Usuario[stringsL.lenguaje] + 's', component: "SuListUsersPage" }
             // { title: 'Alta Chofer', component: "AltaChoferesPage" },
             // { title: 'Alta Auto', component: "AltaAutoPage" }
         ];
