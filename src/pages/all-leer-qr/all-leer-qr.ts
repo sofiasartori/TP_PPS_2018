@@ -21,12 +21,15 @@ import firebase from 'firebase';
 export class AllLeerQrPage {
   type = '';
   user: User;
-  constructor(private stringsL:StringsL,public navCtrl: NavController,
+  button_2 = '';
+  autos = [];
+  constructor(private stringsL: StringsL, public navCtrl: NavController,
     public navParams: NavParams,
     private database: DatabaseProvider,
     private barcode: BarcodeScanner) {
-    this.user = FactoryUser.crearUsuario(this.database.dataUserFb,this.stringsL);
+    this.user = FactoryUser.crearUsuario(this.database.dataUserFb, this.stringsL);
     this.user.textos.encuestaButton1
+    this.button_2 = this.stringsL.Ver_datos_del_chofer[this.stringsL.lenguaje]
   }
 
   ionViewWillEnter() {
@@ -42,7 +45,6 @@ export class AllLeerQrPage {
       const code = value.text;
       switch (this.database.dataUserFb.rol) {
         case ROL_CLIENTE:
-
           break;
         case ROL_CHOFER:
 
@@ -57,6 +59,45 @@ export class AllLeerQrPage {
           break;
       }
     })
+  }
+
+
+  verDatosChofer(auto: { patente: string, key: string }) {
+    this.navCtrl.push('AccountPage', auto);
+    return;
+
+    // this.database.getViaje((viaje) => {
+    //   if (viaje) {
+    //     // this.viaje = viaje.val();
+    //     // this.key = viaje.key;
+    //     const ref = firebase.database().ref('autos');
+    //     ref.on('value', snapshot => {
+    //       this.autos.length = 0;
+    //       snapshot.forEach(subSnapshot => {
+    //         subSnapshot.forEach(data => {
+    //           if (data.val().chofer == viaje.val().chofer) {
+    //             this.database.getChofer(data.val().chofer, (chofer) => {
+
+    //             })
+    //           }
+    //           // this.autos.push({ ...data.val(), key: data.key });
+    //         });
+    //       });
+    //     });
+    //   }
+    // })
+
+
+    // const ref = firebase.database().ref('autos');
+    // ref.on('value', snapshot => {
+    //   this.autos.length = 0;
+    //   snapshot.forEach(subSnapshot => {
+    //     subSnapshot.forEach(data => {
+    //       if (data.val().chofer == "chofer")
+    //         this.autos.push({ ...data.val(), key: data.key });
+    //     });
+    //   });
+    // });
   }
 
   button1() {
@@ -74,7 +115,7 @@ export class AllLeerQrPage {
       };
       switch (this.database.dataUserFb.rol) {
         case ROL_CLIENTE:
-          this.navCtrl.push('EncuestaClienteQrPage', auto);
+          this.verDatosChofer(auto);
           break;
         case ROL_CHOFER:
           firebase.database().ref('autos/' + patente).child(key).update({ chofer: this.database.dataUserFb.user });
@@ -93,35 +134,36 @@ export class AllLeerQrPage {
   }
 
   button2() {
-    this.barcode.scan().then(value => {
-      const code = value.text;
-      const barcodeArray = code.split('/');
-      if (barcodeArray.length != 2) {
-        alert('No es un codigo válido');
-      }
-      const patente = barcodeArray[0];
-      const key = barcodeArray[1];
-      const auto = {
-        patente: patente,
-        key: key
-      };
-      switch (this.database.dataUserFb.rol) {
-        case ROL_CLIENTE:
-          this.navCtrl.push('AccountPage', { type: 'type', auto: { patente: patente, key: key } });
-          break;
-        case ROL_CHOFER:
 
-          break;
-        case ROL_SUPERVISOR:
+      this.barcode.scan().then(value => {
+        const code = value.text;
+        const barcodeArray = code.split('/');
+        if (barcodeArray.length != 2) {
+          alert('No es un codigo válido');
+        }
+        const patente = barcodeArray[0];
+        const key = barcodeArray[1];
+        const auto = {
+          patente: patente,
+          key: key
+        };
+        switch (this.database.dataUserFb.rol) {
+          case ROL_CLIENTE:
+            this.navCtrl.push('AccountPage', { type: 'mostrarChofer', auto: { patente: patente, key: key } });
+            break;
+          case ROL_CHOFER:
 
-          break;
-        case ROL_SU:
+            break;
+          case ROL_SUPERVISOR:
 
-          break;
-        default:
-          break;
-      }
-    })
-  }
+            break;
+          case ROL_SU:
+
+            break;
+          default:
+            break;
+        }
+      })
+    }
 
 }

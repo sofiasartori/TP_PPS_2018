@@ -103,9 +103,25 @@ export class DatabaseProvider {
 
     // return firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase).child('reservas');
   }
-  
-  removeViaje(key,callback:Function){
-    firebase.database().ref('viajes/').child(key).remove(()=>callback());
+
+  getChofer(user: string, callback: Function) {
+    let chofer;
+    return firebase.database().ref('choferes').on('value', snapshot => {
+      snapshot.forEach(data => {
+        if (data.val().user = user)
+          chofer = data;
+      })
+      callback(chofer);
+
+    })
+    //.child(this.dataUserFb.id_firebase).child('reservas');
+
+    // return firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase).child('reservas');
+  }
+
+
+  removeViaje(key, callback: Function) {
+    firebase.database().ref('viajes/').child(key).remove(() => callback());
   }
   guardarSinKey() {
     var user = firebase.auth().currentUser;

@@ -10,7 +10,8 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{stringsL.Mi_cuenta[stringsL.lenguaje]}}</ion-title>
+    <ion-title *ngIf="!mostrarChofer">{{stringsL.Mi_cuenta[stringsL.lenguaje]}}</ion-title>
+    <ion-title *ngIf="mostrarChofer">{{user.nombre}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,21 +19,31 @@
 
 <ion-content padding>
 
-  <ion-list *ngIf="auth.user">
+  <ion-list *ngIf="user">
     <img [src]="url"/>
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+            <!-- <button ion-button block (click)="buscarFoto()">Ubicación actual</button> -->
+          </ion-col>
+          <ion-col>
+            <button ion-button block (click)="takePhoto()" [disabled]="editable">{{stringsL.Modificar_foto[stringsL.lenguaje]}}</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     <ion-item>
       <ion-label color="primary">{{stringsL.Usuario[stringsL.lenguaje]}}</ion-label>
-      <ion-input [(ngModel)]="auth.user.user" [disabled]="true"></ion-input>
+      <ion-input [(ngModel)]="user.user" [disabled]="true"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary">{{stringsL.Email[stringsL.lenguaje]}}</ion-label>
-      <ion-input [(ngModel)]="auth.user.email" [disabled]="true"></ion-input>
+      <ion-input [(ngModel)]="user.email" [disabled]="true"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="!mostrarChofer">
       <ion-label color="primary">Direccion</ion-label>
-      <ion-input [(ngModel)]="auth.user.direccion" [disabled]="true"></ion-input>
+      <ion-input [(ngModel)]="user.direccion" [disabled]="true"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="!mostrarChofer">
       <ion-label color="primary">{{stringsL.Contrasenia[stringsL.lenguaje]}}</ion-label>
       <ion-input [(ngModel)]="newPass" [disabled]="editable" type="password"></ion-input>
     </ion-item>
@@ -42,12 +53,12 @@
       <ion-input placeholder="Text Input"></ion-input>
     </ion-item> -->
 
-  <button ion-button (click)="editar()" full>{{(editable)?stringsL.Cambiar_contrasenia[stringsL.lenguaje]:stringsL.Pedir_Auto[stringsL.lenguaje]}}</button>
+  <button ion-button (click)="editar()" *ngIf="!mostrarChofer" full>{{(editable)?stringsL.Editar[stringsL.lenguaje]:stringsL.Cancelar[stringsL.lenguaje]}}</button>
 
-  <button ion-button block (click)="presentL()" full>{{stringsL.Idioma[stringsL.lenguaje]}}</button>
+  <button ion-button block (click)="presentL()" *ngIf="!mostrarChofer" full>{{stringsL.Idioma[stringsL.lenguaje]}}</button>
   <button ion-button (click)="guardar()" full  *ngIf="!editable">{{stringsL.Guardar[stringsL.lenguaje]}}</button>
 
 
   <br>
-  <button ion-button (click)="logout()" full>{{stringsL.Cerrar_Sesion[stringsL.lenguaje]}}</button>
+  <button *ngIf="!mostrarChofer"  ion-button (click)="logout()" full>{{stringsL.Cerrar_Sesion[stringsL.lenguaje]}}</button>
 </ion-content>

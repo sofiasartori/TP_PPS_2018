@@ -6,6 +6,9 @@ import { User } from '../../utils/FactoryUser';
 import firebase from 'firebase';
 import { DatabaseProvider } from '../../providers/database';
 import { ActionSheetController } from 'ionic-angular'
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
+
 /**
  * Generated class for the AccountPage page.
  *
@@ -22,7 +25,17 @@ export class AccountPage {
   editable = true;
   newPass = 'asdfasdfasdf';
   url = '';
-  user: User;
+  user: any = {};
+  mostrarChofer = false;
+  foto;
+
+  cameraOptions: CameraOptions = {
+    quality: 10,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  }
+
   constructor(private stringsL: StringsL,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,7 +43,8 @@ export class AccountPage {
     public storageFb: StorageFbProvider,
     private database: DatabaseProvider,
     public alertCtrl: ActionSheetController,
-    public platform: Platform
+    public platform: Platform,
+    private camera: Camera,
   ) {
   }
 
@@ -39,15 +53,17 @@ export class AccountPage {
     // this.getFoto();
   }
   ionViewWillEnter() {
+    this.mostrarChofer = false
     if (this.navParams.get('type') == 'mostrarChofer') {
+      this.mostrarChofer = true
       const auto: { patente: string, key: string } = this.navParams.get('auto');
       firebase.database().ref('autos/' + auto.patente).child(auto.key).once('value').then(data => {
-        const chofer = data.val().email;
+        const chofer = data.val().chofer;
         let ref = this.database.getUserInfo(chofer);
         ref.on('value', snapshot => {
           snapshot.forEach(dataUser => {
             this.user = dataUser.val();
-            this.getFoto(chofer);
+            this.getFoto(dataUser.val().email);
           });
         });
       });
@@ -62,6 +78,9 @@ export class AccountPage {
   }
   guardar() {
     this.auth.changePassword(this.newPass);
+    this.guardarFoto();
+    this.editar();
+
   }
 
 
@@ -74,6 +93,25 @@ export class AccountPage {
     this.url = await this.storageFb.getClientPhotoUrl(mail);
   }
 
+
+  takePhoto() {
+    this.camera.getPicture({
+      quality: 10,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.JPEG,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      this.foto = imageData;
+      this.url = 'data:image/jpeg;base64,' + imageData;
+      // this.storageFb.uploadPhoto(this.foto);
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
+  }
+  guardarFoto() {
+    this.storageFb.uploadPhoto(this.foto, this.user.email);
+  }
   presentL() {
     const lenguajes = [
       'espanol',

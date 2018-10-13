@@ -18,27 +18,38 @@
     <h4>Chofer</h4>
     <label>{{(viaje.chofer)?viaje.chofer:'Sin asignar'}}</label>
     <h4>{{stringsL.Estado[stringsL.lenguaje]}}</h4>
-    <label>{{(viaje.finalizado)?'Terminado':'No finalizo'}}</label>
+    <label>{{(viaje.finalizado)?'Terminado': (viaje.chofer)?'En viaje': 'En espera'}}</label>
 
     <button ion-button (click)="cancelar()" full>{{stringsL.Cancelar[stringsL.lenguaje]}}</button>
 
-    <button ion-button (click)="irEncuesta()" full *ngIf="viaje.finalizado">{{stringsL.Encuesta[stringsL.lenguaje]}}  </button>
+    <button ion-button (click)="irEncuesta()" full *ngIf="viaje.finalizado">{{stringsL.Encuesta[stringsL.lenguaje]}}
+    </button>
 
   </div>
 
   <div *ngIf="!viaje">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block (click)="getUbicacion()">Ubicación actual</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button block (click)="getFromMap()">Buscar en el mapa</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <form #f="ngForm" (ngSubmit)="generarPedido(f)">
       <ion-list>
         <ion-item>
-          <ion-label fixed>{{stringsL.Origen[stringsL.lenguaje]}}</ion-label>
+          <ion-label floating>{{stringsL.Origen[stringsL.lenguaje]}}</ion-label>
           <ion-input type="text" [(ngModel)]="origen" name="origen" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>{{stringsL.Destino[stringsL.lenguaje]}}</ion-label>
+          <ion-label floating>{{stringsL.Destino[stringsL.lenguaje]}}</ion-label>
           <ion-input type="text" [(ngModel)]="destino" name="destino" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>{{stringsL.Hora[stringsL.lenguaje]}}</ion-label>
+          <ion-label floating>{{stringsL.Hora[stringsL.lenguaje]}}</ion-label>
           <ion-input type="text" [(ngModel)]="hora" name="hora" required disabled></ion-input>
         </ion-item>
       </ion-list>

@@ -118,6 +118,15 @@ export class StringsL {
         Ruso: 'опрос общественного мнения'
     };
 
+    Ver_datos_del_chofer = {
+        espanol: 'Ver datos del chofer',
+        Ingles: "See driver's data",
+        Aleman: 'Siehe daten des treibers',
+        Frances: 'Voir les données du conducteur',
+        Portugues: 'Veja os dados do driver',
+        Ruso: 'См. Данные драйвера'
+    };
+
     Mapa = {
         espanol: 'Mapa',
         Ingles: 'Map',
@@ -302,7 +311,6 @@ export class StringsL {
         Portugues: 'O que você achou do estado do carro?',
         Ruso: 'Что вы думаете о состоянии автомобиля?'
     };
-
     qviajar_con_nosotros = {
         espanol: '¿Volvería a viajar con nosotros?',
         Ingles: 'Would you will travel with us again?',
@@ -421,7 +429,7 @@ export class StringsL {
         Ruso: 'фамилия'
     };
 
-    Crear_chofer = {
+    Crear_Chofer = {
         espanol: 'Crear chofer',
         Ingles: 'Create Driver',
         Aleman: 'Treiber erstellen',
@@ -537,6 +545,78 @@ export class StringsL {
         Frances: 'Désactiver',
         Portugues: 'Desativar',
         Ruso: 'запрещать'
+    };
+
+    Leer_QR = {
+        espanol: 'Leer QR',
+        Ingles: 'Scan QR',
+        Aleman: 'Lesen sie QR',
+        Frances: 'Lire QR',
+        Portugues: 'Leia QR',
+        Ruso: 'читать qr'
+    };
+
+    Lista_autos = {
+        espanol: 'Lista autos',
+        Ingles: 'Car list',
+        Aleman: 'Auto-Liste',
+        Frances: 'Liste de voiture',
+        Portugues: 'Lista de carros',
+        Ruso: 'список автомобилей'
+    };
+
+    Reservas = {
+        espanol: 'Reservas',
+        Ingles: 'Reservations',
+        Aleman: 'Reserven',
+        Frances: 'Les réserves',
+        Portugues: 'Reservas',
+        Ruso: 'Бронирование'
+    };
+
+    Elegir_en_el_mapa = {
+        espanol: 'Elegir en el mapa',
+        Ingles: 'Choose in map',
+        Aleman: 'Wählen sie auf der karte',
+        Frances: 'Choisissez sur la carte',
+        Portugues: 'Escolha no mapa',
+        Ruso: 'Выберите на карте'
+    };
+
+    Ubicacion_actual = {
+        espanol: 'Ubicación actual',
+        Ingles: 'Actual location',
+        Aleman: 'Aktueller Standort',
+        Frances: 'Situation actuelle',
+        Portugues: 'Localização atual',
+        Ruso: 'текущее местоположение'
+    };
+
+    Ruta = {
+        espanol: 'Ruta',
+        Ingles: 'Route',
+        Aleman: 'Pfad',
+        Frances: 'Chemin',
+        Portugues: 'Caminho',
+        Ruso: 'маршрут'
+    };
+
+    Editar = {
+        espanol: 'Editar',
+        Ingles: 'Edit',
+        Aleman: 'Bearbeiten',
+        Frances: 'Éditer',
+        Portugues: 'Editar',
+        Ruso: 'редактировать'
+    };
+
+    Modificar_foto = {
+        espanol: 'Modificar foto',
+        Ingles: 'Modify photo',
+        Aleman: 'Foto ändern',
+        Frances: 'Modifier la photo',
+        Portugues: 'Modificar foto',
+        Ruso: 'Изменить фотографию'
     };
     constructor() {
 

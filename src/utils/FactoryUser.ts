@@ -83,7 +83,7 @@ export class Cliente extends User {
             { title: this.stringsL.Mis_datos[this.stringsL.lenguaje], component: "AccountPage" },
             { title: this.stringsL.Reservar_auto[this.stringsL.lenguaje], component: "ReservaClientePage" },
             { title: this.stringsL.Mis_reservas[this.stringsL.lenguaje], component: "MisReservasClientePage" },
-            { title: this.stringsL.Encuesta[this.stringsL.lenguaje], component: "EncuestaClienteQrPage" },
+            // { title: this.stringsL.Encuesta[this.stringsL.lenguaje], component: "EncuestaClienteQrPage" },
             { title: this.stringsL.Mapa[this.stringsL.lenguaje], component: "MapaRutaPage" },
             { title: "Ver datos del chofer", component: "AllLeerQrPage" }
         ];
@@ -128,10 +128,10 @@ export class Chofer extends User {
             // { title: 'Login', component: "SigninPage" },
             // { title: 'SignUp', component: "SignupPage" },
             { title: this.stringsL.Mis_datos[this.stringsL.lenguaje], component: "AccountPage" },
-            { title: this.stringsL.Inicio[this.stringsL.lenguaje], component: "HomeClientePage" },
+            // { title: this.stringsL.Inicio[this.stringsL.lenguaje], component: "HomeClientePage" },
             // { title: this.stringsL.Reservar_auto[this.stringsL.lenguaje], component: "ReservaClientePage" },
-            { title: 'Reservas', component: "ChoferListaViajesPendientesPage" },
-            { title: this.stringsL.Encuesta[this.stringsL.lenguaje], component: "EncuestaClienteQrPage" },
+            { title: this.stringsL.Inicio[this.stringsL.lenguaje], component: "ChoferListaViajesPendientesPage" },
+            // { title: this.stringsL.Encuesta[this.stringsL.lenguaje], component: "EncuestaClienteQrPage" },
             { title: this.stringsL.Empezar_a_trabajar[this.stringsL.lenguaje], component: "AllLeerQrPage" }
         ];
         this.formulario = this.crearFormulario();
@@ -174,17 +174,17 @@ export class Supervisor extends User {
         this.sideMenu = [
             // { title: 'Login', component: "SigninPage" },
             // { title: 'SignUp', component: "SignupPage" },
-            { title: 'Bienvenido', component: "HomeSupervisorPage" },
+            { title: 'Inicio', component: "HomeSupervisorPage" },
             { title: this.stringsL.Mis_datos[this.stringsL.lenguaje], component: "AccountPage" },
             { title: 'Alta Chofer', component: "AltaChoferesPage" },
             { title: 'Alta Auto', component: "AltaAutoPage" },
-            { title: 'SupListaChoferPage', component: "SupListaChoferPage" },
-            { title: 'SupListaAutosPage', component: "SupListaAutosPage" },
-            { title: 'SupEncuestaPage', component: "SupEncuestaPage" },
+            { title: 'Lista Choferes', component: "SupListaChoferPage" },
+            { title: this.stringsL.Lista_autos[this.stringsL.lenguaje], component: "SupListaAutosPage" },
+            // { title: 'SupEncuestaPage', component: "SupEncuestaPage" },
             // { title: 'Alta Auto', component: "AltaAutoPage" },
             { title: "Reservas", component: "SupListaViajesPage" },
             { title: this.stringsL.Viajes_pendientes[this.stringsL.lenguaje], component: "SuListaViajesPendientesPage" },
-            { title: "Leer QR", component: "AllLeerQrPage" }
+            // { title: "Leer QR", component: "AllLeerQrPage" }
 
         ];
         this.formulario = this.crearFormulario();
@@ -218,7 +218,7 @@ export class SuperUser extends User {
             // { title: 'Login', component: "SigninPage" },
             // { title: 'SignUp', component: "SignupPage" },
             { title: this.stringsL.Mis_datos[this.stringsL.lenguaje], component: "AccountPage" },
-            { title: 'SuListUsersPage', component: "SuListUsersPage" }
+            { title: 'Lista de usuarios', component: "SuListUsersPage" }
             // { title: 'Alta Chofer', component: "AltaChoferesPage" },
             // { title: 'Alta Auto', component: "AltaAutoPage" }
         ];

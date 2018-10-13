@@ -21,8 +21,9 @@ export class MapaRutaPage {
   end: string = "Gorriti 11";
   directionsService: any;
   directionsDisplay: any;
+  returnPosition = false;
 
-  constructor(private stringsL:StringsL,public navCtrl: NavController,
+  constructor(private stringsL: StringsL, public navCtrl: NavController,
     public platform: Platform,
     public navParams: NavParams,
     private geolocation: Geolocation) {
@@ -35,6 +36,7 @@ export class MapaRutaPage {
   }
   ionViewDidEnter() {
     console.log('ionViewDidEnter MapaRutaPage');
+    this.returnPosition = this.navParams.get('returnPosition')
     this.start = this.navParams.get('start');
     this.end = this.navParams.get('end');
     if (!this.platform.is('mobileweb')) {
@@ -80,7 +82,7 @@ export class MapaRutaPage {
       center: myLatLng,
       zoom: 12
     });
-
+    this.getAddress();
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
       // let marker = new google.maps.Marker({
       //   position: myLatLng,
@@ -106,5 +108,26 @@ export class MapaRutaPage {
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+
+  getAddress() {
+    var geocoder = new google.maps.Geocoder();
+
+    google.maps.event.addListener(this.map, 'click', (event) => {
+      if (this.returnPosition) {
+        geocoder.geocode({
+          'latLng': event.latLng
+        }, (results, status) => {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              this.navParams.get('delegate').destino = results[0].formatted_address
+              this.navCtrl.pop();
+              // alert(results[0].formatted_address);
+            }
+          }
+        });
+      }
+    });
+
   }
 }

@@ -4,6 +4,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { Utils } from '../../lib/Utils';
 import { DatabaseProvider } from '../../providers/database';
 import { NgForm } from "@angular/forms";
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the HomeClientePage page.
@@ -11,6 +12,7 @@ import { NgForm } from "@angular/forms";
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+declare var google;
 
 @IonicPage()
 @Component({
@@ -24,10 +26,11 @@ export class HomeClientePage {
   tieneViajes = false;
   viaje;
   key;
-  constructor(private stringsL:StringsL,
+  constructor(private stringsL: StringsL,
     public navCtrl: NavController,
     private datePicker: DatePicker,
-    private database: DatabaseProvider
+    private database: DatabaseProvider,
+    private geolocation: Geolocation
   ) {
 
   }
@@ -59,7 +62,7 @@ export class HomeClientePage {
       err => console.log('Error occurred while getting date: ', err)
     );
   }
-  irEncuesta(){
+  irEncuesta() {
     this.navCtrl.push("EncuestaClienteQrPage");
   }
   generarPedido(form: NgForm) {
@@ -71,7 +74,39 @@ export class HomeClientePage {
 
   }
 
+  getFromMap() {
+    this.navCtrl.push('MapaRutaPage', { returnPosition: true, delegate: this });
+  }
+
+  getUbicacion() {
+    this.getPosition();
+  }
+
+  getPosition(): any {
+    var geocoder = new google.maps.Geocoder();
+
+    this.geolocation.getCurrentPosition({ timeout: 10000 }).then(response => {
+      // alert(response.coords.longitude)
+      geocoder.geocode({
+        'latLng': new google.maps.LatLng(response.coords.latitude,response.coords.longitude)
+      }, (results, status) => {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            this.origen = results[0].formatted_address
+            // alert(results[0].formatted_address);
+          }
+        }
+      });
+    })
+      .catch(error => {
+        alert(error);
+        console.log(error);
+      })
+
+
+  }
+
   verElMapa(origen, destino) {
-    this.navCtrl.push("MapaRutaPage", { start: origen, end: destino });
+    this.navCtrl.push("MapaRutaPage", { start: this.origen, end: this.destino });
   }
 }

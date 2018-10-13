@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Leer QR</ion-title>
+    <ion-title>Ver datos del chofer</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,5 +20,5 @@
 
   <button ion-button block (click)="button1()" *ngIf="user.textos.encuestaButton1">{{user.textos.encuestaButton1}}</button>
   <br>
-  <button ion-button block (click)="button2()" *ngIf="user.textos.encuestaButton2">{{user.textos.encuestaButton2}}</button>
+  <button ion-button block (click)="button2()" *ngIf="user.textos.encuestaButton2"> {{user.textos.encuestaButton2}}</button>
 </ion-content>
