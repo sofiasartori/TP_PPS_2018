@@ -37,7 +37,7 @@ export class StringsL {
     };
 
     Contrasenia = {
-        espanol: 'Contrasenia',
+        espanol: 'Contraseña',
         Ingles: 'Password',
         Aleman: 'Passwort',
         Frances: 'Mot de passe',
@@ -180,6 +180,15 @@ export class StringsL {
         Frances: 'Conducteur',
         Portugues: 'Motorista',
         Ruso: 'водитель'
+    };
+
+    Sin_asignar = {
+        espanol: 'Sin asignar',
+        Ingles: 'Unassigned',
+        Aleman: 'Nicht zugewiesen',
+        Frances: 'Non attribué',
+        Portugues: 'Não atribuído',
+        Ruso: 'Unassigned'
     };
 
     Estado = {
@@ -375,6 +384,63 @@ export class StringsL {
         Ruso: 'клиент'
     };
 
+    /******* */
+    Sonido = {
+        espanol: 'Sonido',
+        Ingles: 'Sound',
+        Aleman: 'Sound',
+        Frances: 'Son',
+        Portugues: 'Som',
+        Ruso: 'звук'
+    };
+    Fecha = {
+        espanol: 'Fecha',
+        Ingles: 'Date',
+        Aleman: 'Datum',
+        Frances: 'Date',
+        Portugues: 'Namorar',
+        Ruso: 'дата'
+    };
+
+    Precio = {
+        espanol: 'Precio',
+        Ingles: 'Value',
+        Aleman: 'Preis',
+        Frances: 'Prix',
+        Portugues: 'Preco',
+        Ruso: 'цена'
+    };
+
+    En_espera = {
+        espanol: 'En espera',
+        Ingles: 'On hold',
+        Aleman: 'Warten',
+        Frances: 'En attente',
+        Portugues: 'Em espera',
+        Ruso: 'в ожидании'
+    };
+
+    Terminado = {
+        espanol: 'Terminado',
+        Ingles: 'Finished',
+        Aleman: 'Fertig',
+        Frances: 'Fini',
+        Portugues: 'Terminado',
+        Ruso: 'завершено'
+    };
+
+    En_viaje = {
+        espanol: 'En viaje',
+        Ingles: 'On the way',
+        Aleman: 'In der reise',
+        Frances: 'En voyage',
+        Portugues: 'Em viagem',
+        Ruso: 'В поездке'
+    };
+
+    /***** */
+
+
     Empezar_a_trabajar = {
         espanol: 'Empezar a trabajar',
         Ingles: 'Start working',
@@ -519,7 +585,7 @@ export class StringsL {
     };
 
     LISTA_CHOFERES = {
-        espanol: 'LISTA CHOFERES',
+        espanol: 'Lista Choferes',
         Ingles: 'Drivers list',
         Aleman: 'Fahrerliste',
         Frances: 'Liste des pilotes',
@@ -527,8 +593,17 @@ export class StringsL {
         Ruso: 'список драйверов'
     };
 
+    Elegir_hora = {
+        espanol: 'Elegir hora',
+        Ingles: 'Choose time',
+        Aleman: 'Wähle die zeit',
+        Frances: 'Choisissez le temps',
+        Portugues: 'Escolha o tempo',
+        Ruso: 'Выберите время'
+    };
+
     ELIMINAR = {
-        espanol: 'ELIMINAR',
+        espanol: 'Eliminar',
         Ingles: 'Delete',
         Aleman: 'Beseitigen',
         Frances: 'Éliminer',

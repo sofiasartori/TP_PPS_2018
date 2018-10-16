@@ -15,12 +15,14 @@
     <label>{{viaje.destino}}</label>
     <h4>{{stringsL.Hora[stringsL.lenguaje]}}</h4>
     <label>{{viaje.hora}}</label>
-    <h4>Chofer</h4>
-    <label>{{(viaje.chofer)?viaje.chofer:'Sin asignar'}}</label>
-    <h4>{{stringsL.Estado[stringsL.lenguaje]}}</h4>
-    <label>{{(viaje.finalizado)?'Terminado': (viaje.chofer)?'En viaje': 'En espera'}}</label>
+    <h4>{{stringsL.Chofer[stringsL.lenguaje]}}</h4>
 
-    <button ion-button (click)="cancelar()" full>{{stringsL.Cancelar[stringsL.lenguaje]}}</button>
+    <label>{{(viaje.chofer)?viaje.chofer:stringsL.Sin_asignar[stringsL.lenguaje]}}</label>
+
+    <h4>{{stringsL.Estado[stringsL.lenguaje]}}</h4>
+    <label>{{(viaje.finalizado)?stringsL.Terminado[stringsL.lenguaje]: (viaje.chofer)?stringsL.En_viaje[stringsL.lenguaje]: stringsL.En_espera[stringsL.lenguaje]}}</label>
+    <p>{{stringsL.Precio[stringsL.lenguaje]}}: {{viaje.precio |currency }}</p>
+    <button ion-button (click)="cancelar()" *ngIf="!viaje.finalizado" full>{{stringsL.Cancelar[stringsL.lenguaje]}}</button>
 
     <button ion-button (click)="irEncuesta()" full *ngIf="viaje.finalizado">{{stringsL.Encuesta[stringsL.lenguaje]}}
     </button>
@@ -31,14 +33,14 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button block (click)="getUbicacion()">Ubicación actual</button>
+          <button ion-button block (click)="getUbicacion()">{{stringsL.Ubicacion_actual[stringsL.lenguaje]}}</button>
         </ion-col>
         <ion-col>
-          <button ion-button block (click)="getFromMap()">Buscar en el mapa</button>
+          <button ion-button block (click)="getFromMap()">{{stringsL.Elegir_en_el_mapa[stringsL.lenguaje]}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <form #f="ngForm" (ngSubmit)="generarPedido(f)">
+    <form #f="ngForm" (ngSubmit)="verElMapa(f)">
       <ion-list>
         <ion-item>
           <ion-label floating>{{stringsL.Origen[stringsL.lenguaje]}}</ion-label>
@@ -55,7 +57,7 @@
       </ion-list>
       <button ion-button block type="submit" [disabled]="!f.valid">{{stringsL.Pedir_Auto[stringsL.lenguaje]}}</button>
     </form>
-    <button ion-button (click)="getHora()">Eligir hora</button>
+    <button ion-button (click)="getHora()">{{stringsL.Elegir_hora[stringsL.lenguaje]}}</button>
 
   </div>
 </ion-content>

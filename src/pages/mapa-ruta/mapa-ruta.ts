@@ -97,19 +97,67 @@ export class MapaRutaPage {
     });
   }
   calculateAndDisplayRoute() {
+    const generarPedido = this.navParams.get('generarPedido');
+    const home_cliente = this.navParams.get('delegate');
     this.directionsService.route({
       origin: this.start,
       destination: this.end,
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
+        try {
+          if (generarPedido) {
+            home_cliente.distancia = response.routes[0].legs[0].distance.value;
+            home_cliente.callService = true;
+          }
+        } catch (error) {
+
+        }
         this.directionsDisplay.setDirections(response);
       } else {
         window.alert('Directions request failed due to ' + status);
       }
     });
   }
+  codeLatLng(latLng) {
+    var geocoder = new google.maps.Geocoder();
+    // var latlng = new google.maps.LatLng(lat, lng);
+    let country
+    geocoder.geocode({ 'latLng': latLng }, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        console.log(results)
+        if (results[1]) {
+          //formatted address
+          // alert(results[0].formatted_address)
+          //find country name
+          for (var i = 0; i < results[0].address_components.length; i++) {
+            for (var b = 0; b < results[0].address_components[i].types.length; b++) {
 
+              //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+              if (results[0].address_components[i].types[b] == "country") {
+                //this is the object you are looking for
+                country = results[0].address_components[i];
+                break;
+              }
+            }
+          }
+          // alert(JSON.stringify(country));
+          this.navParams.get('delegate').countryCode = country.short_name;
+          this.navParams.get('delegate').refresh = true;
+          this.navCtrl.pop();
+          // return country.short_name;
+          //city data
+          //alert(city.short_name + " " + city.long_name)
+
+
+        } else {
+          alert("No results found");
+        }
+      } else {
+        alert("Geocoder failed due to: " + status);
+      }
+    });
+  }
   getAddress() {
     var geocoder = new google.maps.Geocoder();
 
@@ -126,7 +174,10 @@ export class MapaRutaPage {
             }
           }
         });
-      }
+      } else
+        if (this.navParams.get('getCountry')) {
+          this.codeLatLng(event.latLng)
+        }
     });
 
   }

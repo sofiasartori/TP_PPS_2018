@@ -28,7 +28,7 @@ export class SignupPage {
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
   }
-  constructor(private stringsL:StringsL,private authService: AuthService,
+  constructor(private stringsL: StringsL, private authService: AuthService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private database: DatabaseProvider,
@@ -42,7 +42,7 @@ export class SignupPage {
 
   onSignup(form: NgForm) {
     const loading = this.loadingCtrl.create({
-      content: 'Signing you up...'
+      content: 'Creando el usuario...'
     });
     loading.present();
     this.auth.signup(form.value.email, form.value.password)
@@ -52,7 +52,7 @@ export class SignupPage {
             console.log("log-in", data)
             loading.dismiss();
             const user = form.value.email.split('@')[0];
-            const userFb = { email: form.value.email, direccion: form.value.direccion, user: user, rol: 'cliente',activo:true }
+            const userFb = { email: form.value.email, direccion: form.value.direccion, user: user, rol: 'cliente', activo: true }
             this.database.guardarUsuario(userFb);
             this.auth.setUser(userFb);
             this.storageFb.uploadPhoto(this.foto, form.value.email);
@@ -76,9 +76,9 @@ export class SignupPage {
       }).catch(error => {
         loading.dismiss();
         const alert = this.alertCtrl.create({
-          title: 'Signup failed!',
-          message: error.message,
-          buttons: ['Ok']
+          title: 'Alta con Error',
+          message: 'Tuvimos con problema generando tu usuario',
+          buttons: ['Aceptar']
         });
         alert.present();
       });

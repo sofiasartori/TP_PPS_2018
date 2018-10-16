@@ -20,6 +20,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { ConfigProvider } from '../providers/config';
 import { StringsL } from '../providers/Strings';
+import { NativeAudio } from '@ionic-native/native-audio';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { StringsL } from '../providers/Strings';
     StringsL,
     LaunchNavigator,
     Geolocation,
-    ConfigProvider
+    ConfigProvider,
+    NativeAudio,
+    NativeStorage
   ]
 })
 export class AppModule { }

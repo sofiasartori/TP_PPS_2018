@@ -32,7 +32,10 @@ export class SuListUsersPage {
       this.users.length = 0;
       snapshot.forEach(subSnapshot => {
         subSnapshot.forEach(data => {
-          if (data.val().rol == "cliente" || data.val().rol == "chofer" || data.val().rol == "supervisor")
+
+          if ( data.val().rol == "chofer" || data.val().rol == "supervisor"
+          //  data.val().rol == "cliente"
+          )
             this.users.push({ ...data.val(), key: data.key });
         });
       });

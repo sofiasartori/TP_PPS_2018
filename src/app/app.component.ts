@@ -15,6 +15,8 @@ import { tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
 import { ConfigProvider } from '../providers/config';
 import { StringsL } from '../providers/Strings';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,13 +32,16 @@ export class MyApp {
   ];
 
   showSplash = false;
-  constructor(private stringsL:StringsL,
+  constructor(private stringsL: StringsL,
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public fcm: FcmProvider,
     public toastCtrl: ToastController,
-    public configP: ConfigProvider) {
+    public configP: ConfigProvider,
+    private nativeAudio: NativeAudio,
+    private nativeStorage: NativeStorage,
+  ) {
     // console.log("es android", this.platform._platforms)
     firebase.initializeApp({
       apiKey: "AIzaSyAUpIAlovUT_t0CEgThZcbEd3jHNA4OQ9s",
@@ -68,6 +73,30 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.nativeStorage.getItem('language')
+        .then(
+          data => {
+            console.log(data)
+            this.stringsL.lenguaje = data.language;
+
+          },
+          error => console.error(error)
+        );
+
+      this.nativeStorage.getItem('soundOn')
+        .then(
+          data => {
+            console.log('data', data, JSON.stringify(data))
+            console.log('data2', JSON.stringify(data))
+            if (data.soundOn)
+              this.nativeAudio.preloadSimple('uniqueId3', 'assets/sounds/horn.mp3').then(() => {
+                this.nativeAudio.play('uniqueId3');
+              });
+          })
+
+
+
       timer(3000).subscribe(() => this.showSplash = false)
       // this.fcm.getToken().then(data => {
       //   console.log("data: ", data)

@@ -7,7 +7,8 @@ import firebase from 'firebase';
 import { DatabaseProvider } from '../../providers/database';
 import { ActionSheetController } from 'ionic-angular'
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import getCountryLanguages from 'country-language';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 /**
  * Generated class for the AccountPage page.
@@ -28,7 +29,9 @@ export class AccountPage {
   user: any = {};
   mostrarChofer = false;
   foto;
-
+  refresh = false;
+  soundOn = false;
+  countryCode;
   cameraOptions: CameraOptions = {
     quality: 10,
     destinationType: this.camera.DestinationType.FILE_URI,
@@ -45,6 +48,7 @@ export class AccountPage {
     public alertCtrl: ActionSheetController,
     public platform: Platform,
     private camera: Camera,
+    private nativeStorage: NativeStorage
   ) {
   }
 
@@ -53,6 +57,19 @@ export class AccountPage {
     // this.getFoto();
   }
   ionViewWillEnter() {
+    if (this.refresh) {
+      this.refresh = false;
+      this.setLanguage();
+    }
+    this.nativeStorage.getItem('soundOn')
+      .then(
+        data => {
+          console.log('data', data, JSON.stringify(data))
+          console.log('data2', JSON.stringify(data))
+          this.soundOn = data.soundOn
+        },
+        error => console.error(error)
+      );
     this.mostrarChofer = false
     if (this.navParams.get('type') == 'mostrarChofer') {
       this.mostrarChofer = true
@@ -72,17 +89,97 @@ export class AccountPage {
       this.getFoto();
     }
   }
+
+
+  checkChanged(event) {
+    console.log(event.value)
+    this.nativeStorage.setItem('soundOn', { soundOn: event.value })
+      .then(
+        () => console.log('Stored item!'),
+        error => console.error('Error storing item', error)
+      );
+
+  }
+
+
   editar() {
     this.newPass = (this.editable) ? '' : 'asdfasdfasdf'
     this.editable = !this.editable;
   }
   guardar() {
-    this.auth.changePassword(this.newPass);
-    this.guardarFoto();
-    this.editar();
+    this.auth.changePassword(this.newPass)
+      // this.editar();
+      .then(() => {
+
+        this.guardarFoto();
+        this.editar();
+      }).catch((error) => {
+        this.editar();
+
+      });
 
   }
 
+  irAlMapa() {
+    this.navCtrl.push('MapaRutaPage', { delegate: this, getCountry: true });
+  }
+
+  setLanguage() {
+    const self = this;
+    getCountryLanguages.getCountryLanguages(this.countryCode, (err, languages) => {
+      if (err) {
+        console.log(err);
+      } else {
+        try {
+          let language = languages[0].iso639_1
+          //   [
+          //     'espanol',
+          //     'Ingles',
+          //     'Aleman',
+          //     'Frances',
+          //     'Portugues',
+          //     'Ruso',
+          // ];
+          let index = 0;
+          switch (language) {
+            case 'es':
+              index = 0;
+              break;
+            case 'en':
+              index = 1;
+              break;
+            case 'fr':
+              index = 3;
+              break;
+            case 'de':
+              index = 2;
+              break;
+            case 'pt':
+              index = 4;
+              break;
+            case 'ru':
+              index = 5;
+              break;
+
+            default:
+              index = 0;
+              break;
+          }
+          self.stringsL.lenguaje = self.stringsL.lenguajes[index];
+          self.guardarNuevoLenguage(self.stringsL.lenguaje);
+
+        } catch (error) {
+
+        }
+        // languages.forEach(function (languageCodes) {
+
+
+        //   self.stringsL.lenguaje
+        //   console.log(languageCodes.iso639_1);
+        // });
+      }
+    });
+  }
 
   async logout() {
     await this.auth.logout();
@@ -123,13 +220,14 @@ export class AccountPage {
     ];
 
     let actionSheet = this.alertCtrl.create({
-      title: 'Albums',
+      title: '',
       buttons: [
         {
           text: 'Español',
           // icon: !this.platform.is('ios') ? 'trash' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[0];
+            this.guardarNuevoLenguage();
           }
         },
         {
@@ -137,6 +235,7 @@ export class AccountPage {
           // icon: !this.platform.is('ios') ? 'share' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[1];
+            this.guardarNuevoLenguage();
           }
         },
         {
@@ -144,6 +243,7 @@ export class AccountPage {
           // icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[2];
+            this.guardarNuevoLenguage();
           }
         },
         {
@@ -151,6 +251,7 @@ export class AccountPage {
           // icon: !this.platform.is('ios') ? 'heart-outline' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[3];
+            this.guardarNuevoLenguage();
           }
         },
         {
@@ -158,6 +259,7 @@ export class AccountPage {
           // icon: !this.platform.is('ios') ? 'close' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[4];
+            this.guardarNuevoLenguage();
           }
         },
         {
@@ -165,6 +267,7 @@ export class AccountPage {
           // icon: !this.platform.is('ios') ? 'close' : null,
           handler: () => {
             this.stringsL.lenguaje = this.stringsL.lenguajes[5];
+            this.guardarNuevoLenguage();
           }
         },
         {
@@ -178,5 +281,9 @@ export class AccountPage {
     });
 
     actionSheet.present();
+  }
+
+  guardarNuevoLenguage(language = this.stringsL.lenguaje) {
+    this.nativeStorage.setItem('language', { language: language });
   }
 }

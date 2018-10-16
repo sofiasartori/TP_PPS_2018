@@ -18,53 +18,63 @@
 
 <ion-content padding>
 
-  <form #f="ngForm" (ngSubmit)="editarpendiente(f)" *ngIf="mostrarForm">
-    <ion-item>
-      <ion-label>Choferes</ion-label>
-      <ion-select [(ngModel)]="selectValue" name="selectValue">
-        <ion-option *ngFor="let chofer of choferes" [value]="chofer.user">{{chofer.user}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <button ion-button block type="submit" [disabled]="!f.valid">Editar</button>
-  </form>
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let pendiente of pendientes" #slading>
+  <div *ngIf="!auto">
+    <button ion-button block (click)="button1()" *ngIf="user.textos.encuestaButton1">{{user.textos.encuestaButton1}}</button>
+    <br>
+    <button ion-button block (click)="button2()" *ngIf="user.textos.encuestaButton2"> {{user.textos.encuestaButton2}}</button>
+  </div>
+
+  <div *ngIf="auto">
+    <form #f="ngForm" (ngSubmit)="editarpendiente(f)" *ngIf="mostrarForm">
       <ion-item>
-        <ion-avatar item-start>
-          <!-- <img [src]="(pendiente.chofer)?'assets/imgs/active.png':'assets/imgs/disabled.png'"> -->
-          <img [src]="pendiente.foto">
-        </ion-avatar>
-        <h2>{{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.cliente}}</h2>
-        <p>{{stringsL.Email[stringsL.lenguaje]}} {{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.email}}</p>
-        <p>Fecha: {{pendiente.hora}}</p>
-        <p>{{stringsL.Origen[stringsL.lenguaje]}}: {{pendiente.origen}}</p>
-        <p>{{stringsL.Destino[stringsL.lenguaje]}}: {{pendiente.destino}}</p>
-        <p>Chofer: {{pendiente.chofer}}</p>
+        <ion-label>Choferes</ion-label>
+        <ion-select [(ngModel)]="selectValue" name="selectValue">
+          <ion-option *ngFor="let chofer of choferes" [value]="chofer.user">{{chofer.user}}</ion-option>
+        </ion-select>
       </ion-item>
-      <ion-item-options>
-        <button ion-button color="secondary" icon-start (click)="verElMapa(pendiente,slading)">
-          <ion-icon name="map"></ion-icon>
-          {{stringsL.Mapa[stringsL.lenguaje]}}
-        </button>
+      <button ion-button block type="submit" [disabled]="!f.valid">Editar</button>
+    </form>
 
-        <button ion-button color="light" *ngIf="!pendiente.chofer" icon-start (click)="asignarpendiente(pendiente,slading)">
-          <ion-icon name="ios-more"></ion-icon>
-          Tomar Viaje
-        </button>
-        
-        <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="finalizar(pendiente,slading)">
+    <ion-list>
+      <ion-item-sliding *ngFor="let pendiente of pendientes" #slading>
+        <ion-item>
+          <ion-avatar item-start>
+            <!-- <img [src]="(pendiente.chofer)?'assets/imgs/active.png':'assets/imgs/disabled.png'"> -->
+            <img [src]="pendiente.foto">
+          </ion-avatar>
+          <h2>{{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.cliente}}</h2>
+          <p>{{stringsL.Email[stringsL.lenguaje]}} {{stringsL.Cliente[stringsL.lenguaje]}}: {{pendiente.email}}</p>
+          <p>Fecha: {{pendiente.hora}}</p>
+          <p>{{stringsL.Origen[stringsL.lenguaje]}}: {{pendiente.origen}}</p>
+          <p>{{stringsL.Destino[stringsL.lenguaje]}}: {{pendiente.destino}}</p>
+          <p>{{stringsL.Chofer[stringsL.lenguaje]}}: {{pendiente.chofer}}</p>
+          <p>{{stringsL.Precio[stringsL.lenguaje]}}: {{pendiente.precio}}</p>
+        </ion-item>
+        <ion-item-options>
+          <button ion-button color="secondary" icon-start (click)="verElMapa(pendiente,slading)">
+            <ion-icon name="map"></ion-icon>
+            {{stringsL.Mapa[stringsL.lenguaje]}}
+          </button>
+
+          <button ion-button color="light" *ngIf="!pendiente.chofer" icon-start (click)="asignarpendiente(pendiente,slading)">
+            <ion-icon name="ios-more"></ion-icon>
+            Tomar Viaje
+          </button>
+
+          <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="finalizar(pendiente,slading)">
             <ion-icon name="text"></ion-icon>
             {{stringsL.Terminar[stringsL.lenguaje]}}
           </button>
 
 
-        <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="cancelarpendiente(pendiente,slading)">
-          <ion-icon name="text"></ion-icon>
-          {{stringsL.Cancelar[stringsL.lenguaje]}}
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
+          <button ion-button color="primary" *ngIf="pendiente.chofer" icon-start (click)="cancelarpendiente(pendiente,slading)">
+            <ion-icon name="text"></ion-icon>
+            {{stringsL.Cancelar[stringsL.lenguaje]}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 
-  </ion-list>
 </ion-content>

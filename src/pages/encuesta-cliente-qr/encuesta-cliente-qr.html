@@ -13,9 +13,16 @@
 <ion-content padding>
   <ion-content padding>
 
-    <button ion-button block (click)="leerQR()">Leer QR</button>
+    <ion-item *ngIf="user?.rol == 'supervisor'">
+      <ion-label>{{stringsL.Chofer[stringsL.lenguaje]}}</ion-label>
+      <ion-select [(ngModel)]="selectChofer" name="selectChofer" required (ionChange)="cambioChofer($event)">
+        <ion-option *ngFor="let chofer of choferes" [value]="{key:chofer.key,chofer:chofer}">{{chofer.nombre}}</ion-option>
+      </ion-select>
+    </ion-item>
 
-    <button ion-button block (click)="verGraficos()" *ngIf="showForm">Ver estadisticas</button>
+    <button ion-button block (click)="leerQR()" *ngIf="user?.rol != 'supervisor'">Leer QR</button>
+
+    <button ion-button block (click)="verGraficos()" *ngIf="showForm || key">Ver estadisticas</button>
 
     <form #f="ngForm" (ngSubmit)="guardarEncuesta(f)" *ngIf="showForm">
       <ion-list>
@@ -58,13 +65,14 @@
         </ion-item>
         <ion-item>
           <ion-label> {{user?.formulario?.headerCheck}}</ion-label>
-          <ion-checkbox [(ngModel)]="checkValue" name="checkValue" required></ion-checkbox>
+          <ion-checkbox [(ngModel)]="checkValue" name="checkValue"></ion-checkbox>
         </ion-item>
         <ion-list-header>
           {{user?.formulario?.headerComentario}}
         </ion-list-header>
         <ion-item>
-          <ion-textarea placeholder="{{stringsL.Comentario[stringsL.lenguaje]}}" [(ngModel)]="comentario" name="comentario" required></ion-textarea>
+          <ion-textarea placeholder="{{stringsL.Comentario[stringsL.lenguaje]}}" [(ngModel)]="comentario" name="comentario"
+            required></ion-textarea>
         </ion-item>
       </ion-list>
       <button ion-button block type="submit" [disabled]="!f.valid">Enviar</button>

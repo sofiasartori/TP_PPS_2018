@@ -22,8 +22,9 @@ import { StringsL } from '../../providers/Strings';
   templateUrl: 'signin.html',
 })
 export class SigninPage {
+  // mail = "chofer2@gmail.com";
 
-  // mail = "chofer1@gmail.com";
+  // mail = "supervisor_1@gmail.com";
   mail = "sartorisofiaines@gmail.com";
 
   password = "123456";
@@ -83,7 +84,7 @@ export class SigninPage {
       .catch(error => {
         loading.dismiss();
         const alert = this.alertCtrl.create({
-          title: 'Signin failed!',
+          title: 'Error al iniciar sesión',
           message: error.message,
           buttons: ['Ok']
         });

@@ -102,6 +102,12 @@ export class Cliente extends User {
             usuario: this.user
         };
         const refEncuestaUsuario = firebase.database().ref('encuestas/clientes/' + options.objetoAMedir);
+        firebase.database().ref('viajes').on('value', snapshot => {
+            snapshot.forEach(data => {
+                if (data.val().email = this.email)
+                    firebase.database().ref('viajes/').child(data.key).remove(() => { });
+            })
+        })
         return refEncuestaUsuario.push(data);
     }
     traerEncuestas(objetoAMedir: string): firebase.database.Reference {
@@ -132,7 +138,7 @@ export class Chofer extends User {
             // { title: this.stringsL.Reservar_auto[this.stringsL.lenguaje], component: "ReservaClientePage" },
             { title: this.stringsL.Inicio[this.stringsL.lenguaje], component: "ChoferListaViajesPendientesPage" },
             // { title: this.stringsL.Encuesta[this.stringsL.lenguaje], component: "EncuestaClienteQrPage" },
-            { title: this.stringsL.Empezar_a_trabajar[this.stringsL.lenguaje], component: "AllLeerQrPage" }
+            // { title: this.stringsL.Empezar_a_trabajar[this.stringsL.lenguaje], component: "AllLeerQrPage" }
         ];
         this.formulario = this.crearFormulario();
 

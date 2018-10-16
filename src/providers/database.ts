@@ -75,6 +75,33 @@ export class DatabaseProvider {
     return refRutas.push(recorrido, () => { callback() });
   }
 
+  checkSiChoferTieneAuto(callback: Function) {
+    let autoR = null;
+    firebase.database().ref('autos/').on('value', autos => {
+      autos.forEach(keys => {
+        keys.forEach(auto => {
+          const pepe = auto.val();
+          if (auto.val().chofer == this.dataUserFb.user) {
+            autoR = auto;
+          }
+        })
+      })
+      callback(autoR);
+    })
+
+    // firebase.database().ref('autos/' + auto.patente).child(auto.key).once('value').then(data => {
+    //   const chofer = data.val().chofer;
+    //   let ref = this.database.getUserInfo(chofer);
+    //   ref.on('value', snapshot => {
+    //     snapshot.forEach(dataUser => {
+    //       this.user = dataUser.val();
+    //       this.getFoto(dataUser.val().email);
+    //     });
+    //   });
+    // });
+    // callback();
+  }
+
   guardarReserva(data: Recorrido) {
     const recorrido = { ...data, email: firebase.auth().currentUser.email, cliente: this.dataUserFb.user }
     const refReservas = firebase.database().ref('reservas');
@@ -119,6 +146,18 @@ export class DatabaseProvider {
     // return firebase.database().ref('usuarios/' + this.dataUserFb.user).child(this.dataUserFb.id_firebase).child('reservas');
   }
 
+  getChoferes(callback: Function) {
+    let choferes = [];
+    return firebase.database().ref('choferes').on('value', snapshot => {
+      snapshot.forEach(data2 => {
+        data2.forEach(data => {
+          choferes.push({ ...data.val(), key: data.key });
+        });
+      })
+      callback(choferes);
+    });
+
+  }
 
   removeViaje(key, callback: Function) {
     firebase.database().ref('viajes/').child(key).remove(() => callback());

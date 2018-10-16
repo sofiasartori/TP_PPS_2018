@@ -17,12 +17,12 @@
   
   <form #f="ngForm" (ngSubmit)="editarpendiente(f)" *ngIf="mostrarForm">
     <ion-item>
-      <ion-label>Choferes</ion-label>
+      <ion-label>{{stringsL.LISTA_CHOFERES[stringsL.lenguaje]}}</ion-label>
       <ion-select [(ngModel)]="selectValue" name="selectValue">
         <ion-option *ngFor="let chofer of choferes" [value]="chofer.user">{{chofer.user}}</ion-option>
       </ion-select>
     </ion-item>
-    <button ion-button block type="submit" [disabled]="!f.valid">Editar</button>
+    <button ion-button block type="submit" [disabled]="!f.valid">{{stringsL.Editar[stringsL.lenguaje]}}</button>
   </form>
 
   <ion-list>
@@ -36,12 +36,12 @@
         <p>Fecha: {{pendiente.hora}}</p>
         <p>{{stringsL.Origen[stringsL.lenguaje]}}: {{pendiente.origen}}</p>
         <p>{{stringsL.Destino[stringsL.lenguaje]}}: {{pendiente.destino}}</p>
-        <p>Chofer: {{pendiente.chofer}}</p>
+        <p>{{stringsL.Chofer[stringsL.lenguaje]}}: {{pendiente.chofer}}</p>
       </ion-item>
       <ion-item-options>
           <button ion-button color="danger"  icon-start (click)="eliminar(pendiente,slading)">
               <ion-icon name="trash"></ion-icon>
-              Eliminar
+              {{stringsL.ELIMINAR[stringsL.lenguaje]}}
             </button>
         <button ion-button color="light" *ngIf="!pendiente.chofer" icon-start (click)="asignarpendiente(pendiente,slading)">
           <ion-icon name="ios-more"></ion-icon>

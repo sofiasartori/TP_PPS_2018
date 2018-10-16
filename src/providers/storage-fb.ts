@@ -24,13 +24,15 @@ export class StorageFbProvider {
   guardarFoto() {
 
   }
-  uploadPhoto(foto, user?): void {
+  uploadPhoto(foto, user?, callback?: Function): void {
     const mail = firebase.auth().currentUser.email;
     const usuario = mail.split('@')[0];
     // console.log(usuario);
     this.refFotos.child(user + '.jpeg')
       .putString(foto, 'base64', { contentType: 'image/jpeg' })
       .then((savedPicture) => {
+        if (callback)
+          callback();
         // this.myPhotoURL = savedPicture.downloadURL;
       });
   }

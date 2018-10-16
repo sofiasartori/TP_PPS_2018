@@ -5,7 +5,8 @@ import { Utils } from '../../lib/Utils';
 import { DatabaseProvider } from '../../providers/database';
 import { NgForm } from "@angular/forms";
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-
+import { NativeAudio } from '@ionic-native/native-audio';
+import { NativeStorage } from '@ionic-native/native-storage';
 /**
  * Generated class for the HomeClientePage page.
  *
@@ -26,26 +27,49 @@ export class HomeClientePage {
   tieneViajes = false;
   viaje;
   key;
+  distancia = 0;
+  PRECIO_MULTIPLICADOR = 1 / (1000 / 15);
+  callService = false;
+  soundOn = false;
   constructor(private stringsL: StringsL,
     public navCtrl: NavController,
     private datePicker: DatePicker,
     private database: DatabaseProvider,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private nativeAudio: NativeAudio,
+    private nativeStorage: NativeStorage
   ) {
+    this.nativeAudio.preloadSimple('uniqueId1', 'assets/sounds/bell.mp3').then;
+    this.nativeAudio.preloadSimple('uniqueId2', 'assets/sounds/cancel_bell.mp3').then;
 
   }
   ionViewWillEnter() {
-
-    this.tieneViajes = !!this.database.dataUserFb.recorrido
+    this.nativeStorage.getItem('soundOn')
+      .then(
+        data => {
+          console.log(data)
+          this.soundOn = data.soundOn
+        },
+        error => console.error(error)
+      );
+    this.tieneViajes = false
+    this.viaje = null;
     this.database.getViaje((viaje) => {
       if (viaje) {
+        this.tieneViajes = true;
         this.viaje = viaje.val();
         this.key = viaje.key;
       }
     })
+    if (this.callService) {
+      this.generarPedido(null);
+      this.callService = false;
+    }
   }
 
   cancelar() {
+    if (this.soundOn)
+      this.nativeAudio.play('uniqueId2');
     this.database.removeViaje(this.key, () => { this.viaje = null; });
   }
   getHora() {
@@ -63,13 +87,17 @@ export class HomeClientePage {
     );
   }
   irEncuesta() {
+
     this.navCtrl.push("EncuestaClienteQrPage");
   }
   generarPedido(form: NgForm) {
     const hora = this.hora;
-    const destino = form.value.destino;
-    this.database.guardarNuevaRuta({ hora: hora, destino: destino, origen: form.value.origen }, () => {
-      this.verElMapa(form.value.origen, form.value.destino)
+    const destino = this.destino;
+    console.log({ hora: hora, destino: destino, origen: this.origen });
+    console.log({ precio: this.distancia * this.PRECIO_MULTIPLICADOR });
+
+    this.database.guardarNuevaRuta({ hora: hora, destino: destino, origen: this.origen, precio: this.distancia * this.PRECIO_MULTIPLICADOR }, () => {
+      // this.verElMapa(form.value.origen, form.value.destino)
     })
 
   }
@@ -88,7 +116,7 @@ export class HomeClientePage {
     this.geolocation.getCurrentPosition({ timeout: 10000 }).then(response => {
       // alert(response.coords.longitude)
       geocoder.geocode({
-        'latLng': new google.maps.LatLng(response.coords.latitude,response.coords.longitude)
+        'latLng': new google.maps.LatLng(response.coords.latitude, response.coords.longitude)
       }, (results, status) => {
         if (status == google.maps.GeocoderStatus.OK) {
           if (results[0]) {
@@ -107,6 +135,9 @@ export class HomeClientePage {
   }
 
   verElMapa(origen, destino) {
-    this.navCtrl.push("MapaRutaPage", { start: this.origen, end: this.destino });
+    if (this.soundOn)
+      this.nativeAudio.play('uniqueId1')
+
+    this.navCtrl.push("MapaRutaPage", { start: this.origen, end: this.destino, delegate: this, generarPedido: true });
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'; import { StringsL } from '../../providers/Strings';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database';
 import { ROL_CLIENTE, ROL_CHOFER, ROL_SU, ROL_SUPERVISOR } from '../../properties';
 import { BarcodeScanner } from '../../../node_modules/@ionic-native/barcode-scanner';
@@ -26,7 +26,8 @@ export class AllLeerQrPage {
   constructor(private stringsL: StringsL, public navCtrl: NavController,
     public navParams: NavParams,
     private database: DatabaseProvider,
-    private barcode: BarcodeScanner) {
+    private barcode: BarcodeScanner,
+    private platform: Platform) {
     this.user = FactoryUser.crearUsuario(this.database.dataUserFb, this.stringsL);
     this.user.textos.encuestaButton1
     this.button_2 = this.stringsL.Ver_datos_del_chofer[this.stringsL.lenguaje]
@@ -101,14 +102,41 @@ export class AllLeerQrPage {
   }
 
   button1() {
-    this.barcode.scan().then(value => {
-      const code = value.text;
-      const barcodeArray = code.split('/');
-      if (barcodeArray.length != 2) {
-        alert('No es un codigo válido');
-      }
-      const patente = barcodeArray[0];
-      const key = barcodeArray[1];
+
+    if (this.platform.is('cordova')) {
+      this.barcode.scan().then(value => {
+        const code = value.text;
+        const barcodeArray = code.split('/');
+        if (barcodeArray.length != 2) {
+          alert('No es un codigo válido');
+        }
+        const patente = barcodeArray[0];
+        const key = barcodeArray[1];
+        const auto = {
+          patente: patente,
+          key: key
+        };
+        switch (this.database.dataUserFb.rol) {
+          case ROL_CLIENTE:
+            this.verDatosChofer(auto);
+            break;
+          case ROL_CHOFER:
+            firebase.database().ref('autos/' + patente).child(key).update({ chofer: this.database.dataUserFb.user });
+            this.navCtrl.push('EncuestaClienteQrPage', auto);
+            break;
+          case ROL_SUPERVISOR:
+            this.navCtrl.push('EncuestaClienteQrPage', auto);
+            break;
+          case ROL_SU:
+
+            break;
+          default:
+            break;
+        }
+      })
+    } else {
+      const patente = 'POP112';
+      const key = '-LJMIoAG3zWwy6o3sSF3';
       const auto = {
         patente: patente,
         key: key
@@ -130,11 +158,11 @@ export class AllLeerQrPage {
         default:
           break;
       }
-    })
+    }
   }
 
   button2() {
-
+    if (this.platform.is('cordova')) {
       this.barcode.scan().then(value => {
         const code = value.text;
         const barcodeArray = code.split('/');
@@ -164,6 +192,30 @@ export class AllLeerQrPage {
             break;
         }
       })
+    } else {
+      const patente = 'POP112';
+      const key = '-LJMIoAG3zWwy6o3sSF3';
+      const auto = {
+        patente: patente,
+        key: key
+      };
+      switch (this.database.dataUserFb.rol) {
+        case ROL_CLIENTE:
+          this.navCtrl.push('AccountPage', { type: 'mostrarChofer', auto: { patente: patente, key: key } });
+          break;
+        case ROL_CHOFER:
+
+          break;
+        case ROL_SUPERVISOR:
+
+          break;
+        case ROL_SU:
+
+          break;
+        default:
+          break;
+      }
     }
+  }
 
 }

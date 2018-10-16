@@ -12,7 +12,8 @@ import { DatabaseProvider } from '../../providers/database';
   templateUrl: 'encuesta-cliente-qr.html',
 })
 export class EncuestaClienteQrPage {
-  key: string = 'asdjhajkdhjkahdjkahs';
+
+  key: string = null;
   patente: string = 'P';
   rangeValue: string;
   radioValue: string;
@@ -21,8 +22,11 @@ export class EncuestaClienteQrPage {
   comentario: string;
   showForm = false;
   user: User;
+  selectChofer: string;
   auto: { patente: string, key: string };
-  constructor(private stringsL:StringsL,
+  choferes = [];
+
+  constructor(private stringsL: StringsL,
     public navCtrl: NavController,
     public navParams: NavParams,
     private barcodeScanner: BarcodeScanner,
@@ -35,9 +39,15 @@ export class EncuestaClienteQrPage {
   }
   ionViewDidEnter() {
     // this.leerQR();
-    this.user = FactoryUser.crearUsuario(this.database.dataUserFb,this.stringsL);
+    this.user = FactoryUser.crearUsuario(this.database.dataUserFb, this.stringsL);
     this.auto = this.navParams.get('auto');
     console.log('user', this.user);
+    if (this.user.rol == 'supervisor') {
+      this.database.getChoferes((choferesF) => {
+        this.choferes.length = 0;
+        this.choferes = choferesF;
+      })
+    }
   }
   guardarEncuesta(form: NgForm) {
     const key = this.user.guardarEncuesta(
@@ -54,10 +64,17 @@ export class EncuestaClienteQrPage {
     if (!key) {
       alert('Error al enviar la encuesta');
     } else {
-      alert(this.stringsL.Encuesta[this.stringsL.lenguaje] +' enviada correctamente');
+      alert(this.stringsL.Encuesta[this.stringsL.lenguaje] + ' enviada correctamente');
       this.showForm = false;
       this.limpiarPagina();
     }
+  }
+
+  cambioChofer(event) {
+    console.log('cambioChofer', event)
+    this.key = event.key;
+    this.patente = event.chofer.nombre;
+    this.showForm = true;
   }
 
   limpiarPagina() {
